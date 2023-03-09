@@ -5,8 +5,8 @@ import ProductManager from "./managers/ProductManager.js";
 import productRouter from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 
-const cartManager = new CartManager("./src/json/cart.json");
-const manager = new ProductManager("./src/json/products.json");
+// const cartManager = new CartManager("./src/json/cart.json");
+// const manager = new ProductManager("./src/json/products.json");
 
 const app = express();
 
@@ -17,4 +17,4 @@ app.listen(8080, () => {
   console.log("server listening on port 8080");
 });
 
-export { cartManager, manager }
+// export { cartManager, manager }

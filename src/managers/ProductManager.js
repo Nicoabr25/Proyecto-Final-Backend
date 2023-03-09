@@ -61,11 +61,9 @@ class ProductManager {
     } else {
       if (!repetido) {
         await fs.promises.writeFile(this.#path, JSON.stringify([...products, newProduct]));
-        console.log(
-          `El producto con el código: ${code} se ha agregado con exito`
-        );
+        return (`El producto con el código: ${code} se ha agregado con exito`);
       } else {
-        console.log("El producto ya se encuentra en la lista");
+        throw new Error;
       }
     }
   }
@@ -75,13 +73,12 @@ class ProductManager {
     const products = await this.getProducts(); //obtengo los productos del archivo
     let aux = products.find((prod) => prod.id == id); //busco el producto a modificar
     if (!aux) {
-      console.log(
-        `El producto con id: ${id} no se encuentra en la base de datos`
-      );
+      console.log(`El producto con id: ${id} no se encuentra en la base de datos`)
+      throw new Error;
     } else {
-      if (Object.keys(propModify).includes(id)) {
+      if (Object.keys(propModify).includes("id")) {
         //chequeo que no se haya pasado el id como variable a modificar ya que no se puede
-        console.log("No se puede modificar el id");
+        throw new Error;//sin incluye id tira error
       } else {
         if (Object.keys(propModify).includes("price")) { //si dentro del body paso price, lo que hago es transformarlo de texto a nuemro
           propModify.price = parseInt(propModify.price)
@@ -102,7 +99,7 @@ class ProductManager {
     const products = await this.getProducts();
     const verificacion = products.some(prod => prod.id == id)
     if (!verificacion) {
-      return ("No existe ese producto")
+      throw new Error;
     } else {
       const aux = products.filter((prod) => prod.id !== id);
       await fs.promises.writeFile(this.#path, JSON.stringify(aux)); //reescribo el archivo
@@ -110,7 +107,6 @@ class ProductManager {
     }
   }
 }
-
 ///Para eliminar el archivo
 async function eliminarArchivo(path) {
   await fs.promises.unlink(path);

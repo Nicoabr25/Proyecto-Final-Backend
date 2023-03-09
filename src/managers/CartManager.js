@@ -50,10 +50,10 @@ class CartManager {
         let contador = await this.Contador();
         const newCart = {
             id: contador,
-            products: [] //pid , quantity
+            products: [], //pid , quantity
         }
         await fs.promises.writeFile(this.#path, JSON.stringify([...carts, newCart]));
-        console.log(`El carrito con el id: ${id} se ha agregado con exito`);
+        // console.log(`El carrito con el id: ${id} se ha agregado con exito`);
     }
 
     async addProducttoCart(cid, product) { //tengo que ver como vincular el carrito al ProductManager para ver si el id pasado es un producto real, ver stock y demás...
@@ -67,7 +67,6 @@ class CartManager {
             let ProductsInCart = cart.products.filter((prod) => prod.id !== prodInCart.id) //busco los productos que tienen otro id del carrito
             let newCartProducts = [...ProductsInCart, prodInCart] //array con lso productos y el aumentado la cantidad
             cart.products = newCartProducts; //actualzio los productos del carrito
-
             let newCarts = carts.filter((cart) => cart.id !== cid) //busco los carritos que no tienen el id cdid
             newCarts = [...newCarts, cart] //agrego el carrito actualziado a los demás carritps
             await fs.promises.writeFile(this.#path, JSON.stringify(newCarts))//escribo los nuevos carritos
@@ -96,5 +95,6 @@ class CartManager {
 async function eliminarArchivo(path) {
     await fs.promises.unlink(path);
 }
+
 
 export default CartManager;
