@@ -1,6 +1,6 @@
 import { Router, json } from "express";
 import ProductManager from "../managers/ProductManager.js";
-// import { manager } from "../app.js";
+
 
 
 const productRouter = Router();
@@ -44,7 +44,9 @@ productRouter.post("/", async (req, res) => {
   const { title, description, price, thumbnail = [], code, stock, categoty, status = true } = req.body;
   try {
     await manager.addProduct(title, description, parseInt(price), thumbnail, parseInt(code), parseInt(stock), categoty, status);
-    res.status(201).send("Producto agregado con exito");
+    req.io.emit("new-product", req.body);
+    res.status(201).send("Producto agregado con exito")
+      ;
   } catch (e) {
     res.status(404).send(`El producto con el código: ${code} ya existe en la lista, no se pudo agregar nuevo producto`);
   }
@@ -54,8 +56,11 @@ productRouter.put("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
     const id = parseInt(pid);
+    const products = await manager.getProducts();
     await manager.updateProduct(id, req.body);
+    req.io.emit("product-updated", products);
     res.send({ status: "success", payload: await manager.getProductbyId(id) })
+    req.io.emit
   }
   catch (e) {
     res.status(404).send("No se pudo actualizar el producto")
@@ -67,6 +72,8 @@ productRouter.delete("/:pid", async (req, res) => {
     const { pid } = req.params;
     const id = parseInt(pid);
     await manager.deleteProduct(id);
+    const products = await manager.getProducts();
+    req.io.emit("deleted-product", products);
     res.send("Producto Eliminado")
   } catch (e) {
     res.status(404).send("No se pudo eliminar el producto, id inexistente")

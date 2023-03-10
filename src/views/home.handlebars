@@ -1,0 +1,18 @@
+<div> {{!-- todo esto se inserta en el body de main.handlebars --}}
+    <h1>Productos:</h1>
+<ul>
+    {{#each products}}
+        <li>
+            <p>Id: {{id}}</p>
+            <p>Title: {{title}}</p>
+            <p>Description: {{description}}</p>
+            <p>Price: {{price}} </p>
+            <p>Thumbnail: {{thumbnail}} </p>
+            <p>Code: {{code}}</p>
+            <p>Stock: {{stock}} </p>
+            <p>Category: {{category}} </p>
+            <p>Status: {{status}}</p>
+        </li>
+    {{/each}}
+</ul>
+</div>
