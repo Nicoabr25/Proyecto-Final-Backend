@@ -1,11 +1,14 @@
 import fs from "fs";
+import __dirname from "../../utils.js"
+
 // const fs = require("fs");
 
+const path = __dirname + "/dao/json/products.json"
 class ProductManager {
-  #path;
+  ;
 
-  constructor(path) {
-    this.#path = path;
+  constructor() {
+    console.log("Trabajando con FileSystem")
   }
 
   async Contador() {
@@ -22,7 +25,7 @@ class ProductManager {
 
   async getProducts() {
     try {
-      const products = await fs.promises.readFile(this.#path, "utf-8");
+      const products = await fs.promises.readFile(path, "utf-8");
       return JSON.parse(products);
     } catch (error) {
       return [];
@@ -60,7 +63,7 @@ class ProductManager {
       console.log("Parametros faltantes");
     } else {
       if (!repetido) {
-        await fs.promises.writeFile(this.#path, JSON.stringify([...products, newProduct]));
+        await fs.promises.writeFile(path, JSON.stringify([...products, newProduct]));
         return (`El producto con el código: ${code} se ha agregado con exito`);
       } else {
         throw new Error;
@@ -78,7 +81,7 @@ class ProductManager {
     } else {
       if (Object.keys(propModify).includes("id")) {
         //chequeo que no se haya pasado el id como variable a modificar ya que no se puede
-        throw new Error;//sin incluye id tira error
+        throw new Error;//si incluye id tira error
       } else {
         if (Object.keys(propModify).includes("price")) { //si dentro del body paso price, lo que hago es transformarlo de texto a nuemro
           propModify.price = parseInt(propModify.price)
@@ -89,7 +92,7 @@ class ProductManager {
         aux = { ...aux, ...propModify };
         let newArray = products.filter((prod) => prod.id !== id); //obtengo la lista de todos los productos menos el modificado
         newArray = [...newArray, aux]; // armo el array de productos con los productos viejos y el nuevo modificado
-        await fs.promises.writeFile(this.#path, JSON.stringify(newArray)); //reescribo el archivo
+        await fs.promises.writeFile(path, JSON.stringify(newArray)); //reescribo el archivo
         console.log("Modificación exitosa");
       }
     }
@@ -102,7 +105,7 @@ class ProductManager {
       throw new Error;
     } else {
       const aux = products.filter((prod) => prod.id !== id);
-      await fs.promises.writeFile(this.#path, JSON.stringify(aux)); //reescribo el archivo
+      await fs.promises.writeFile(path, JSON.stringify(aux)); //reescribo el archivo
       console.log(`Se ha eliminado el producto con el id : ${id}`);
     }
   }

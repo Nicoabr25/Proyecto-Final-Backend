@@ -1,12 +1,12 @@
 import { Router, json } from "express";
-import ProductManager from "../managers/ProductManager.js";
+import ProductManager from "../dao/file-managers/product.manager.js"
 
 
 
 const productRouter = Router();
 productRouter.use(json());
 
-const manager = new ProductManager("./src/json/products.json");
+const manager = new ProductManager();
 
 //localhost:8080/api/products?limit=3
 productRouter.get("/", async (req, res) => {

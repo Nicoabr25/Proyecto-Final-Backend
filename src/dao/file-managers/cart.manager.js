@@ -1,12 +1,14 @@
 import fs from "fs";
+import __dirname from "../../utils.js"
 
 // const fs = require("fs");
 
-class CartManager {
-    #path;
+const path = __dirname + "/dao/json/cart.json"
 
-    constructor(path) {
-        this.#path = path;
+class CartManager {
+
+    constructor() {
+        console.log("Trabajando con FileSystem")
     }
 
     async Contador() {
@@ -23,7 +25,7 @@ class CartManager {
 
     async getCarts() {
         try {
-            const carts = await fs.promises.readFile(this.#path, "utf-8");
+            const carts = await fs.promises.readFile(path, "utf-8");
             return JSON.parse(carts);
         } catch (error) {
             return [];
@@ -52,7 +54,7 @@ class CartManager {
             id: contador,
             products: [], //pid , quantity
         }
-        await fs.promises.writeFile(this.#path, JSON.stringify([...carts, newCart]));
+        await fs.promises.writeFile(path, JSON.stringify([...carts, newCart]));
         // console.log(`El carrito con el id: ${id} se ha agregado con exito`);
     }
 
@@ -69,12 +71,12 @@ class CartManager {
             cart.products = newCartProducts; //actualzio los productos del carrito
             let newCarts = carts.filter((cart) => cart.id !== cid) //busco los carritos que no tienen el id cdid
             newCarts = [...newCarts, cart] //agrego el carrito actualziado a los demás carritps
-            await fs.promises.writeFile(this.#path, JSON.stringify(newCarts))//escribo los nuevos carritos
+            await fs.promises.writeFile(path, JSON.stringify(newCarts))//escribo los nuevos carritos
         } else {//el producto no esta en el carrito
             cart.products = [...cart.products, { id: product.id, quantity: 1 }] //agrego el producto al carrito
             let newCarts = carts.filter((cart) => cart.id !== cid)
             newCarts = [...newCarts, cart]
-            await fs.promises.writeFile(this.#path, JSON.stringify(newCarts))
+            await fs.promises.writeFile(path, JSON.stringify(newCarts))
         }
     }
 
@@ -85,7 +87,7 @@ class CartManager {
             return ("No existe ese carrito")
         } else {
             const aux = carts.filter((cart) => cart.id !== id);
-            await fs.promises.writeFile(this.#path, JSON.stringify(aux)); //reescribo el archivo
+            await fs.promises.writeFile(path, JSON.stringify(aux)); //reescribo el archivo
             console.log(`Se ha eliminado el carrito con el id : ${id}`);
         }
     }
