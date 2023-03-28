@@ -1,6 +1,5 @@
 import { Router, json } from "express";
-import ProductManager from "../dao/file-managers/product.manager.js"
-
+import { ProductManager } from "../dao/index.js";
 
 
 const productRouter = Router();
@@ -28,7 +27,7 @@ productRouter.get("/", async (req, res) => {
 productRouter.get("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
-    const ProductId = await manager.getProductbyId(parseInt(pid));
+    const ProductId = await manager.getProductbyId(pid);
     if (ProductId == undefined) {
       res.send("Producto inexistente");
     } else {
@@ -40,22 +39,28 @@ productRouter.get("/:pid", async (req, res) => {
 });
 
 productRouter.post("/", async (req, res) => {
-  //id: contador,title,description,price,thumbnail,code,stock,category, status,
-  const { title, description, price, thumbnail = [], code, stock, categoty, status = true } = req.body;
   try {
-    await manager.addProduct(title, description, parseInt(price), thumbnail, parseInt(code), parseInt(stock), categoty, status);
-    req.io.emit("new-product", req.body);
-    res.status(201).send("Producto agregado con exito")
-      ;
+    const title = req.body.title;
+    const description = req.body.description;
+    const price = Number(req.body.price);
+    const thumbnail = req.body.thumbnail;
+    const code = Number(req.body.code);
+    const stock = Number(req.body.stock);
+    const category = req.body.category;
+    const status = true;
+
+    const result = await manager.addProduct(title, description, price, thumbnail, code, stock, category, status);
+    req.io.emit("new-product", result);
+    res.status(201).send("Producto agregado con exito");
   } catch (e) {
-    res.status(404).send(`El producto con el código: ${code} ya existe en la lista, no se pudo agregar nuevo producto`);
+    res.status(404).send(`Error, no se pudo agregar el producto`);
   }
 });
 
 productRouter.put("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
-    const id = parseInt(pid);
+    const id = pid;
     const products = await manager.getProducts();
     await manager.updateProduct(id, req.body);
     req.io.emit("product-updated", products);
@@ -70,7 +75,7 @@ productRouter.put("/:pid", async (req, res) => {
 productRouter.delete("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
-    const id = parseInt(pid);
+    const id = pid;
     await manager.deleteProduct(id);
     const products = await manager.getProducts();
     req.io.emit("deleted-product", products);

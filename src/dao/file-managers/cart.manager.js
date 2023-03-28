@@ -1,5 +1,6 @@
 import fs from "fs";
 import __dirname from "../../utils.js"
+import { nextID } from "./utilidades.js";
 
 // const fs = require("fs");
 
@@ -9,18 +10,6 @@ class CartManager {
 
     constructor() {
         console.log("Trabajando con FileSystem")
-    }
-
-    async Contador() {
-        const carts = await this.getCarts();
-        let id = carts.map((cart) => cart.id); //id contiene todos los Ids de produscts
-        let contador = Math.max(...id); //obtengo el mayor id
-        if (contador == -Infinity) {
-            //Math.max devuelve el mayor número o -infinity si el array esta vacío
-            return 1;
-        } else {
-            return ++contador; //devuelve Contador (ID mayor) +1
-        }
     }
 
     async getCarts() {
@@ -49,9 +38,9 @@ class CartManager {
 
     async addCart() {
         let carts = await this.getCarts();
-        let contador = await this.Contador();
+        // let contador = await this.Contador();
         const newCart = {
-            id: contador,
+            id: nextID(carts),
             products: [], //pid , quantity
         }
         await fs.promises.writeFile(path, JSON.stringify([...carts, newCart]));

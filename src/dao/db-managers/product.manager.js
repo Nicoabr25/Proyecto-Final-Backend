@@ -1,0 +1,60 @@
+import productModel from "../models/products.models.js";
+import cartModel from "../models/carts.models.js";
+
+
+class ProductManager {
+
+  constructor() {
+    console.log("Trabajando con DB!")
+  }
+
+  async getProducts() {
+    try {
+      const products = await productModel.find().lean();  //para transformar el objeto de Mongodb a JS
+      return products;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  async getProductbyId(id) {
+    const productsFilter = await productModel.findById(id);
+    if (!productsFilter) {
+      console.log("Producto no encontrado");
+    } else {
+      return productsFilter;
+    }
+  }
+
+  async addProduct(title, description, price, thumbnail, code, stock, category, status) {
+
+    const product = { title, description, price, thumbnail, code, stock, category, status }
+    const result = await productModel.create(product);
+    console.log("Producto Agregado!")
+    return result;
+  }
+
+  async updateProduct(id, newinfo) {
+    try {
+      const updateProduct = await productModel.findOneAndReplace({ _id: id }, newinfo)
+      return updateProduct;
+    } catch (error) {
+      console.log(`El producto con id: ${id} no se encuentra en la base de datos`)
+      throw new Error;
+    }
+  }
+
+
+  async deleteProduct(id) {
+    try {
+      const result = await productModel.deleteOne({ _id: id });
+      return result
+    } catch (error) {
+      console.log("No se pudo eliminar el producto")
+      throw new Error;
+    }
+  }
+}
+
+
+export default ProductManager;
