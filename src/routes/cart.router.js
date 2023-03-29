@@ -31,7 +31,7 @@ cartRouter.post("/", async (req, res) => {
 cartRouter.get("/:cid", async (req, res) => {
   try {
     const { cid } = req.params;
-    const cart = await cartManager.getCartbyId(parseInt(cid))
+    const cart = await cartManager.getCartbyId(cid)
     if (cart == undefined) {
       res.send("carrito inexistente");
     } else {
@@ -44,8 +44,8 @@ cartRouter.get("/:cid", async (req, res) => {
 
 cartRouter.post("/:cid/product/:pid", async (req, res) => {
   const { cid, pid } = req.params;
-  const prodId = parseInt(pid);
-  const cartId = parseInt(cid);
+  const prodId = pid;
+  const cartId = cid;
   try {
     let product = await manager.getProductbyId(prodId);
     await cartManager.addProducttoCart(cartId, product);

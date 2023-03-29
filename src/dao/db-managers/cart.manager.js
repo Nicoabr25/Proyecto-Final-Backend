@@ -36,9 +36,6 @@ class CartManager {
     async addCart(products) {
         try {
             const newCart = { products: [] };
-            for (const prod of products) {
-                newCart.products.push({ ...prod, quantity: 1 })
-            }
             const result = await cartModel.create(newCart);
             return result
         } catch (error) {
@@ -47,21 +44,21 @@ class CartManager {
 
     }
 
-    async addProducttoCart(cartId, prodId) {
-        const cart = await cartModel.findById(cartId);
-        for (let index = 0; index < cart.products.length; index++) {//recorro los productos que hay en el carrito
-            if (cart.products[index].idProduct == prodId) { //busco el producto (posicion index) cuyo ID sea igual a prodId
-                cart.products[index].quantity = cart.products[index].quantity + 1;//como encontre el producto en el carrito le sumo 1 a la cantidad
-                cart.save();
-                return console.log("Producto agregado")
+    async addProducttoCart(cartId, product) {
+        try {
+            const cart = await cartModel.findById(cartId)
+            const prod = cart.products.find(aux => aux.ProdId == product._id)
+            if (prod) {
+                prod.quantity += 1;
+                await cart.save()
+            } else {
+                cart.products.push({ ProdId: product._id, quantity: 1 })
+                await cart.save()
             }
+        } catch (error) {
+            throw new Error;
         }
-        cart.products.push({ idProduct: prodId, quantity: 1 }) //el producto prodId no esta en el carrito cartId entonces lo agrego con cantidad 1
-        cart.save()
-        return console.log("Producto agregado")
     }
-
-
     async deleteCart(cartId) {
         const cart = await cartModel.findById(cartId);
         if (!cart) {
