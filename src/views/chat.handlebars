@@ -1,0 +1,15 @@
+<div>
+    <h1>Bienvenidos al Chat</h1>
+    <input id="chat-input"/>
+</div>
+<div>
+    <p id="chat-messages">
+        {{#each messages}}
+            <b>{{this.username}}:</b>{{this.messages}}<br>
+        {{/each}}
+    </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>
