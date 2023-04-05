@@ -40,8 +40,9 @@ class CartManager {
         } catch (error) {
             console.log("No se pudo crear el carrito")
         }
-
     }
+
+
 
     async addProducttoCart(cartId, product) {
         try {
@@ -50,9 +51,11 @@ class CartManager {
             if (prod) {
                 prod.quantity += 1;
                 await cart.save()
+                await cart.populate("products.product").lean()
             } else {
                 cart.products.push({ ProdId: product._id, quantity: 1 })
-                await cart.save()
+                await cart.save();
+                await cart.populate("products.product")
             }
         } catch (error) {
             throw new Error;
@@ -65,6 +68,27 @@ class CartManager {
         } else {
             cartModel.deleteOne(cartId)
             console.log(`Se ha eliminado el carrito con el id : ${id}`);
+        }
+    }
+
+    async deleteProductinCart(cartId, prodId) {
+        try {
+            const cart = await cartModel.findById(cartId);
+            const prod = cart.products.find(aux => aux.ProdId == prodId)
+
+            if (!prod) {
+                throw new Error("No existe dicho producto")
+            }
+            if (prod.quantity > 1) {
+                prod.quantity -= 1;
+                cart.save()
+            } else {
+                let newCartProducts = cart.products.filter((p) => p.id !== prodId);
+                cart.products = newCartProducts;
+                cart.save()
+            }
+        } catch (Error) {
+            throw new Error("no se pudo realizar la operación")
         }
     }
 };

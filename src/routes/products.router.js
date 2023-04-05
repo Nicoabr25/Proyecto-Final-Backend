@@ -12,7 +12,7 @@ productRouter.get("/", async (req, res) => {
   try {
     const { limit, page, sort, queryKey, queryParam } = req.query;
     const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
-    res.send(products);
+    res.send({ status: "success", payload: products });
     // if (limit == undefined) {
     //   const aux = products.slice(0, 10);
     //   res.send(aux);
