@@ -10,12 +10,14 @@ const chatManager = new ChatManager();
 
 
 viewsRouter.get("/", async (req, res) => {
-    const products = await manager.getProducts();
+    const { limit, page, sort, queryKey, queryParam } = req.query
+    const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
     res.render("home", { products, style: "index" }) // home.handlebars le paso el style de css
 });
 
 viewsRouter.get("/real-time-products", async (req, res) => {
-    const products = await manager.getProducts();
+    const { limit, page, sort, queryKey, queryParam } = req.query
+    const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
     res.render("real_time_products", { products, style: "index2" })
 })
 
