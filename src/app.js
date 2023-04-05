@@ -60,7 +60,7 @@ app.use("/", viewsRouter); //viewa.router.js que usa donde se hace el render de 
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/products", viewsRouter);
-app.use("/products/productsDetail", viewsRouter)
+
 
 
 //Mongoose//
