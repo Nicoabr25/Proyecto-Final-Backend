@@ -31,7 +31,7 @@ chatInput.addEventListener("keyup", (ev) => { //Escucha cuando se presiona una t
 });
 
 const chatMessages = document.getElementById("chat-messages");
-socket.on("messages", (data) => { //cuando escucha un mensaje tipo messages (linea 29)
+socket.on("messages", (data) => { //cuando escucha un mensaje tipo messages (linea 27)
     let message = "";
     data.forEach((m) => {
         message += `<b>${m.username}:</b> ${m.message}</br>`;

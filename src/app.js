@@ -1,4 +1,4 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import productRouter from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 import { engine } from "express-handlebars";
@@ -10,11 +10,13 @@ import ChatManager from "./dao/db-managers/chat.manager.js"
 
 
 const app = express();
+app.use(urlencoded({ extended: true }));
+
 let messages = [];
 const chatManager = new ChatManager();
 
 //Public//
-
+app.use(express.json())
 app.use(express.static(__dirname + "/../public"))
 
 //Handlebars//
@@ -23,10 +25,6 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views"); //tengo que isar la ruta absoluta (dirname me da la ruta hasta donde se ejecuta el codigo app.js)
 
-//Mongoose//
-mongoose.connect("mongodb+srv://nicoabr:mipassword1234@cluster0.wlygjnj.mongodb.net/ecommerce?retryWrites=true&w=majority").then((conn) => {
-  console.log("Connected to DB!!!")
-})
 
 //Socket.io//
 const httpServer = app.listen(8080, () => { //instancia de servidor HTTP
@@ -61,6 +59,11 @@ app.use((req, res, next) => {
 app.use("/", viewsRouter); //viewa.router.js que usa donde se hace el render de Handlebarss
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
+app.use("/products", viewsRouter);
+app.use("/products/productsDetail", viewsRouter)
 
 
-
+//Mongoose//
+mongoose.connect("mongodb+srv://nicoabr:mipassword1234@cluster0.wlygjnj.mongodb.net/ecommerce?retryWrites=true&w=majority").then((conn) => {
+  console.log("Connected to DB!!!")
+})

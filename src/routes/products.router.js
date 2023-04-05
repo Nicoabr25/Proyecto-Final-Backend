@@ -10,19 +10,38 @@ const manager = new ProductManager();
 //localhost:8080/api/products?limit=3
 productRouter.get("/", async (req, res) => {
   try {
-    const { limit } = req.query;
-    const products = await manager.getProducts();
-    if (limit == undefined) {
-      res.send(products);
-    } else {
-      const aux = products.slice(0, parseInt(limit));
-      res.send(aux);
-    }
+    const { limit, page, sort, queryKey, queryParam } = req.query;
+    const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
+    res.send(products);
+    // if (limit == undefined) {
+    //   const aux = products.slice(0, 10);
+    //   res.send(aux);
+    // } else {
+    //   const aux = products.slice(0, parseInt(limit));
+    //   res.send(aux);
+    // }
   } catch (e) {
     res.status(404).send("No se pueden obtener los productos")
   }
 });
 
+
+// productRouter.get("/", async (req, res) => {
+//   try {
+//     const { limit, page, sort, queryKey, queryParam } = req.query;
+//     const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
+//     res.send(products);
+//     // if (limit == undefined) {
+//     //   const aux = products.slice(0, 10);
+//     //   res.send(aux);
+//     // } else {
+//     //   const aux = products.slice(0, parseInt(limit));
+//     //   res.send(aux);
+//     // }
+//   } catch (e) {
+//     res.status(404).send("No se pueden obtener los productos")
+//   }
+// });
 //localhost:8080/products/2
 productRouter.get("/:pid", async (req, res) => {
   try {

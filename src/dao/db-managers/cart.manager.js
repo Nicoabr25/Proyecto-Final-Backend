@@ -9,7 +9,6 @@ class CartManager {
         console.log("Trabajando con DB!")
     }
 
-
     async getCarts() {
         try {
             const result = await cartModel.find().lean();
