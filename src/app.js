@@ -8,7 +8,6 @@ import { Server } from "socket.io";
 import mongoose from "mongoose";
 import ChatManager from "./dao/db-managers/chat.manager.js"
 
-
 const app = express();
 app.use(urlencoded({ extended: true }));
 
@@ -60,8 +59,6 @@ app.use("/", viewsRouter); //viewa.router.js que usa donde se hace el render de 
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/products", viewsRouter);
-
-
 
 //Mongoose//
 mongoose.connect("mongodb+srv://nicoabr:mipassword1234@cluster0.wlygjnj.mongodb.net/ecommerce?retryWrites=true&w=majority").then((conn) => {
