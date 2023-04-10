@@ -47,7 +47,7 @@ class CartManager {
     async addProducttoCart(cartId, product) {
         try {
             const cart = await cartModel.findById(cartId)
-            const prod = cart.products.find(aux => aux.ProdId == product._id)
+            const prod = cart.products.find(aux => aux._Id == product._id)
             if (prod) {
                 prod.quantity += 1;
                 await cart.save()
@@ -74,7 +74,7 @@ class CartManager {
     async deleteProductinCart(cartId, prodId) {
         try {
             const cart = await cartModel.findById(cartId);
-            const prod = cart.products.find(aux => aux.ProdId == prodId)
+            const prod = cart.products.find(aux => aux.id == prodId)
 
             if (!prod) {
                 throw new Error("No existe dicho producto")
