@@ -1,5 +1,11 @@
 <div>
     <h1>Lista de Productos buscados</h1>
+    <h2>Bienvenido: {{userData.user}}, tu pérfil de usuario es: {{userData.rol}}</h2>
+    <div>
+        <form method="post" action="/api/session/logout">
+        <button type="submit">Log Out!</button>
+        </form>
+    </div>
     <div id="prodList">
         <ul>
             {{#each products.docs}}
