@@ -17,6 +17,9 @@ authRouter.post("/signup", async (req, res) => {
                 rol = "user";
             }
             const newUser = await userModel.create({ name, email, password, rol });
+            req.session.user = newUser.name
+            req.session.email = newUser.email
+            req.session.rol = newUser.rol
             console.log("usuario Registrado!");
             res.redirect("/profile");
         } else {
