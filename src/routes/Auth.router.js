@@ -1,5 +1,6 @@
 import { Router, json, urlencoded } from "express";
 import userModel from "../dao/models/user.models.js";
+import { createHash, isValid } from "../utils.js";
 
 const authRouter = Router();
 authRouter.use(json());
@@ -16,7 +17,13 @@ authRouter.post("/signup", async (req, res) => {
             } else {
                 rol = "user";
             }
-            const newUser = await userModel.create({ name, email, password, rol });
+            const NewUserData = {
+                name,
+                email,
+                password: createHash(password),
+                rol,
+            }
+            const newUser = await userModel.create(NewUserData);
             req.session.user = newUser.name
             req.session.email = newUser.email
             req.session.rol = newUser.rol
@@ -36,9 +43,8 @@ authRouter.post("/login", async (req, res) => {
         const { email, password } = req.body;
         const user = await userModel.findOne({ email: email })
         if (!user) {
-            console.log("Usuario inexistente, te redireccionaremos a la página de login..."),
-                res.redirect("/signup");
-        } else if (email === user.email & password === user.password) {
+            res.send(`Usuario inexistente, haz click  <a href="/signup">Aquí</a> para regiustrarte`)
+        } else if (email === user.email & isValid(user, password) == true) {
             req.session.user = user.name
             req.session.email = user.email
             req.session.rol = user.rol
@@ -47,7 +53,7 @@ authRouter.post("/login", async (req, res) => {
             res.send("Usuario y contraseña incorrecto")
         }
     } catch (error) {
-        res.status(401).send("Error al crear el usuario")
+        res.status(401).send("Error de login")
     }
 });
 

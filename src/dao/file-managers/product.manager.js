@@ -1,5 +1,5 @@
 import fs from "fs";
-import __dirname from "../../utils.js"
+import { __dirname } from "../../utils.js"
 import { nextID } from "./utilidades.js";
 
 // const fs = require("fs");

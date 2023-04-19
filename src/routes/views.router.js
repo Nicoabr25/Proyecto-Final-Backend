@@ -43,7 +43,7 @@ viewsRouter.get("/", async (req, res) => {
 
 viewsRouter.get("/login", async (req, res) => {
     const userData = req.session
-    res.render("_login", { userData })
+    res.render("_login", { style: "login", userData })
 });
 
 viewsRouter.get("/profile", async (req, res) => {

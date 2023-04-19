@@ -1,7 +1,7 @@
 import productRouter from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 import viewsRouter from "./routes/views.router.js"
-import __dirname from "./utils.js"
+import { __dirname } from "./utils.js"
 import ChatManager from "./dao/db-managers/chat.manager.js"
 import authRouter from "./routes/Auth.router.js";
 
@@ -36,7 +36,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "/views")); //tengo que i ar la ruta absoluta (dirname me da la ruta hasta donde se ejecuta el codigo app.js)
 
-//Sessins//
+//Sessions//
 
 app.use(session({
   store: MongoStore.create({
