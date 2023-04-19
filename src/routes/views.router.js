@@ -49,13 +49,13 @@ viewsRouter.get("/login", async (req, res) => {
 viewsRouter.get("/profile", async (req, res) => {
     console.log(req.session)
     const userData = req.session
-    res.render("_profile", { userData })
+    res.render("_profile", { style: "index", userData })
 });
 
 //autentificación//
 
 viewsRouter.get("/signup", async (req, res) => {
-    res.render("_signup")
+    res.render("_signup", { style: "index" })
 });
 
 

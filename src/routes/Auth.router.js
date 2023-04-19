@@ -68,4 +68,21 @@ authRouter.post("/logout", (req, res) => {
 });
 
 
+authRouter.post("/forgot", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await userModel.findOne({ email: email })
+        if (user) {
+            user.password = createHash(password);
+            const userUpdate = await userModel.findByIdAndUpdate({ email: user.email }, user);
+            res.send("Contraseña actualziada");
+        } else {
+            res.send("Usuario inexistente")
+        }
+
+    } catch (error) {
+        res.send("No se pudo restaurar la contraeña")
+    }
+})
+
 export default authRouter;
