@@ -52,6 +52,12 @@ viewsRouter.get("/profile", async (req, res) => {
     res.render("_profile", { style: "index", userData })
 });
 
+viewsRouter.get("/forgot", async (req, res) => {
+    console.log(req.session)
+    const userData = req.session
+    res.render("_forgot", { style: "index", userData })
+});
+
 //autentificación//
 
 viewsRouter.get("/signup", async (req, res) => {
