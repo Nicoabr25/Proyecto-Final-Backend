@@ -243,7 +243,7 @@ p {
 }
 
 /*-------Body------*/
-#body {
+#main {
     grid-area: main;
     background-color:antiquewhite
     /* background-attachment: fixed;
@@ -252,5 +252,18 @@ p {
     background-size: cover; */
 }
 
+#main div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #48434659;
+    border-radius: 1rem;
+    margin: 10vh 15vw 0 15vw;
+    padding: 15px;
+}
 
-
+#main input, button{
+    margin: 5px 5px 2px 5px;
+    padding: 2px;
+}

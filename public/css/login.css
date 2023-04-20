@@ -1,13 +1,258 @@
-body{
-        width: 100%;
-        height: 100vh;
-        /* display: flex;
+@charset "UTF-8";
+/*-------------------------------------------------------------------Extras--------------------------------------------------------------------------*/
+/*------------Reset------------*/
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    line-height: 1;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+nav ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input,
+.form__article form textarea,
+select {
+    vertical-align: middle;
+}
+
+/*------------ Variables ------------*/
+/*------------ Utilidades ------------*/
+.color-dark {
+    color: #262225;
+}
+
+.color-grey {
+    color: #40393E;
+}
+
+.color-lgreen {
+    color: #3CA6A6;
+}
+
+.color-blue {
+    color: #024959;
+}
+
+/*-------------------------------------------------------------------Secciones--------------------------------------------------------------------------*/
+/*-------General------*/
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "header""main""footer";
+}
+
+a {
+    text-decoration: none;
+    color: #f5f5f5;
+}
+
+a:hover {
+    color: #3CA6A6;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+h4 {
+    font-size: 1rem;
+}
+
+h5 {
+    font-size: 0.75rem;
+}
+
+h6 {
+    font-size: 0.75rem;
+}
+
+p {
+    font-size: 1.3rem;
+}
+
+/*-------Header------*/
+.navbar-nav {
+    font-weight: bold;
+}
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+    .contanier-fluid {
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center; */
-        background-size: 300% 300%;
-        background-image: linear-gradient(-45deg, rgb(0, 242, 255) 0%, rgb(9, 255, 0) 25%, yellow 51%, #ff357f 100%);
-        -webkit-animation: AnimateBG 20s ease infinite;
-                animation: AnimateBG 20s ease infinite;
+        justify-content: center;
+    }
+
+    .navbar-brand img {
+        max-width: 125px;
+    }
+}
+
+@media screen and (min-width: 401px) {
+    .contanier-fluid {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar-brand img {
+        max-width: 250px;
+    }
+}
+
+/*-------Body------*/
+#main {
+    grid-area: main;
+    width: 100%;
+    height: 100vh;
+    background-size: 300% 300%;
+    background-image: linear-gradient(-45deg, rgb(138, 234, 239) 0%, rgb(43, 175, 223) 25%, rgb(22, 141, 200) 51%, #a254ea 100%);
+    -webkit-animation: AnimateBG 20s ease infinite;
+            animation: AnimateBG 20s ease infinite;
+
+
 }
 
 @-webkit-keyframes AnimateBG {
@@ -32,4 +277,20 @@ body{
     100% {
         background-position: 0% 50%;
     }
+}
+
+#main div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #48434659;
+    border-radius: 1rem;
+    margin: 10vh 15vw 0 15vw;
+    padding: 15px;
+}
+
+#main input, button{
+    margin: 5px 5px 2px 5px;
+    padding: 2px;
 }

@@ -14,6 +14,8 @@ import cookieParser from "cookie-parser";
 import path from "path";// permite unir __dirname y las demás rutas cambiando el / por \
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import passport from "passport";
+import { initializePassport } from "./config/passport.config.js";
 
 const app = express();
 app.use(express.json())
@@ -36,7 +38,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "/views")); //tengo que i ar la ruta absoluta (dirname me da la ruta hasta donde se ejecuta el codigo app.js)
 
-//Sessions//
+//Sessions//Configura la sessions y las almacena en MongoDB
 
 app.use(session({
   store: MongoStore.create({
@@ -46,9 +48,15 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
 
-}))
+}));
 
-//Socket.io//
+//Configurar passport
+initializePassport();
+app.use(passport.initialize());//nuestro server inicializa passport
+app.use(passport.session()); //Una vez que me autentico con passport, automaticamente me crea la session de ese usuarrio
+
+
+//Socket.io// Comunicación servidor - cliente por Web Socket
 const httpServer = app.listen(8080, () => { //instancia de servidor HTTP
   console.log("server listening on port 8080");
 });
@@ -77,7 +85,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//Routers//
+//Routers// Rutas de vista
 app.use("/", viewsRouter); //viewa.router.js que usa donde se hace el render de Handlebarss
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
