@@ -22,7 +22,7 @@ const initializePassport = () => { //passport trabaja con username y password, p
                     name,
                     email: username,
                     password: createHash(password),
-                    rol//por default se crea como user según el userModel
+                    rol: "user"//por default se crea como user según el userModel
                 }
                 const newUser = await userModel.create(NewUserData);
                 return done(null, newUser) //el primer parametro del done es si hubo error, el segundo es lo que devuelve, en este caso el usuario creado
