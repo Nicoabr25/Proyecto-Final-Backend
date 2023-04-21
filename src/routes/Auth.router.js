@@ -11,7 +11,11 @@ authRouter.use(urlencoded({ extended: true }));
 authRouter.post("/signup", passport.authenticate("signupStrategy", {
     failureRedirect: "/api/session/failure-signup"
 }), (req, res) => {
-    res.send("Usuario registrado");
+    req.session.user = req.user.name
+    req.session.email = req.user.email
+    req.session.rol = "user"
+    console.log(req.session);
+    res.redirect("/profile");
 });
 
 authRouter.get("/failure-signup", (req, res) => {
@@ -25,9 +29,10 @@ authRouter.get("/github", passport.authenticate("githubSignup")); //usa la estra
 authRouter.get("/github-callback", passport.authenticate("githubSignup", {
     failureRedirect: "/api/session/failure-signup"
 }), (req, res) => {
-    req.session.displayName = req.user.name
-    req.session.username = req.user.email
+    req.session.user = req.user.name
+    req.session.email = req.user.email
     req.session.rol = "user"
+    console.log(req.session)
     res.redirect("/profile");
     // res.send(`Usuario autenticado. Podes ver tu pérfil <a href="/profile">Aquí</a>`);
 });
