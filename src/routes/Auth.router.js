@@ -25,7 +25,11 @@ authRouter.get("/github", passport.authenticate("githubSignup")); //usa la estra
 authRouter.get("/github-callback", passport.authenticate("githubSignup", {
     failureRedirect: "/api/session/failure-signup"
 }), (req, res) => {
-    res.send(`Usuario autenticado. Podes ver tu pérfil <a href="/profile">Aquí</a>`);
+    req.session.displayName = req.user.name
+    req.session.username = req.user.email
+    req.session.rol = "user"
+    res.redirect("/profile");
+    // res.send(`Usuario autenticado. Podes ver tu pérfil <a href="/profile">Aquí</a>`);
 });
 
 authRouter.post("/login", async (req, res) => {
