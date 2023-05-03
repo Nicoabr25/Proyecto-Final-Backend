@@ -23,9 +23,9 @@ authRouter.get("/failure-signup", (req, res) => {
     res.send("No fue posible registrar el usuario");
 });
 
-authRouter.get("/current", async (req, res) => {
+authRouter.get("/current", (req, res) => {
     if (req.session) {
-        return res.send({ userInfo: req.user });
+        return res.send({ userInfo: req.session });
     }
     res.send("Usuario No Logueado");
 });
