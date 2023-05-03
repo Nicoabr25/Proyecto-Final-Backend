@@ -13,13 +13,21 @@ authRouter.post("/signup", passport.authenticate("signupStrategy", {
 }), (req, res) => {
     req.session.user = req.user.name
     req.session.email = req.user.email
-    req.session.rol = "user"
+    req.session.rol = req.user.rol
+    req.session.cartid = req.user.cart._id
     console.log(req.session);
     res.redirect("/profile");
 });
 
 authRouter.get("/failure-signup", (req, res) => {
     res.send("No fue posible registrar el usuario");
+});
+
+authRouter.get("/current", async (req, res) => {
+    if (req.session) {
+        return res.send({ userInfo: req.user });
+    }
+    res.send("Usuario No Logueado");
 });
 
 // **Github signup **//
@@ -37,16 +45,31 @@ authRouter.get("/github-callback", passport.authenticate("githubSignup", {
     // res.send(`Usuario autenticado. Podes ver tu pérfil <a href="/profile">Aquí</a>`);
 });
 
+// authRouter.post("/login", passport.authenticate("loginStrategy", {
+//     failureRedirect: "/api/session/failure-login"
+// }), (req, res) => {
+//     req.session.user = user.name
+//     req.session.email = user.email
+//     console.log(req.session)
+//     res.redirect("/profile")
+// });
+
+
+// authRouter.get("/failure-login", (req, res) => {
+//     res.send(`Usuario inexistente, haz click  <a href="/signup">Aquí</a> para registrarte`);
+// });
 authRouter.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await userModel.findOne({ email: email })
         if (!user) {
-            res.send(`Usuario inexistente, haz click  <a href="/signup">Aquí</a> para regiustrarte`)
+            res.send(`Usuario inexistente, haz click  <a href="/signup">Aquí</a> para registrarte`)
         } else if (email === user.email & isValid(user, password) == true) {
             req.session.user = user.name
             req.session.email = user.email
             req.session.rol = user.rol
+            req.session.age = user.age
+            console.log(req.session)
             res.redirect("/products")
         } else {
             res.send("Usuario y contraseña incorrecto")

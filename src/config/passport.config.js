@@ -2,8 +2,11 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import userModel from "../dao/models/user.models.js";
 import { createHash, isValid } from "../utils.js";
-import GithubStrategy from "passport-github2"
+import GithubStrategy from "passport-github2";
+import jwt from "passport-jwt";
+import { CartManager } from "../dao/index.js";
 
+const cart = new CartManager;
 const initializePassport = () => { //passport trabaja con username y password, pero yo habia usado email, entonces lo que hago en la estrategia es asignar el dato de email ausername
     passport.use("signupStrategy", new LocalStrategy(// signupStrategy es el nombre para llamar y usar esta estrategia
         {
@@ -12,20 +15,49 @@ const initializePassport = () => { //passport trabaja con username y password, p
         },
         async (req, username, password, done) => {
             try {
-                const { name } = req.body; //aca paso todas las variables que no sea username(email) y password que vengan de mi formulario
+                const { name, last_name, age } = req.body; //aca paso todas las variables que no sea username(email) y password que vengan de mi formulario
                 const user = await userModel.findOne({ email: username }) //porque passport lo llama username es lo que declaramos en la linea 9
-                if (user) { //si ya existe en la BD arroojo false al done
-                    return done(null, false)
+                if (user) { //si ya existe en la BD arrojo false al done
+                    return done(null, false) //done(Error,payload)
                 }
                 //si el usuario no existe
+                //ferificacion del mail para saber si es admin o user
+                let rol = "user"; //poe defecto es user;
+                if (username.endsWith("@coder.com")) {//si el mail termina en @coder.com el rol toma el valor de admin
+                    rol = "admin"
+                }
                 const NewUserData = {
                     name,
+                    last_name,
+                    age,
                     email: username,
                     password: createHash(password),
-                    rol: "user"//por default se crea como user según el userModel
+                    rol, //por default se crea como user según el userModel
+                    cart: await cart.addCart(),
                 }
                 const newUser = await userModel.create(NewUserData);
                 return done(null, newUser) //el primer parametro del done es si hubo error, el segundo es lo que devuelve, en este caso el usuario creado
+            } catch (error) {
+                return done(error)
+            }
+        }
+    ));
+
+    //Estrategia de login con passport-local
+
+    passport.use("loginStrategy", new LocalStrategy(
+        {
+            usernameField: "email",
+            passReqToCallback: true,
+        },
+        async (username, password, done) => {
+            try {
+                const user = await userModel.findOne({ email: username })
+                if (!user) {
+                    return done(null, false);
+                }                //el usuario existe entonces valido al contraseña
+                if (!isValid(user, password)) return done(null, false)  //la contraseña no es valida
+                return done(null, user);
             } catch (error) {
                 return done(error)
             }
@@ -72,5 +104,25 @@ const initializePassport = () => { //passport trabaja con username y password, p
         return done(null, user);
     });
 }
+
+//     //Passport no puede trabajar bien con cookies, osea no puede retirar la info de la cookie, entonces hago una función que se encargue de eso
+
+//     const jwtStrategy = jwt.Strategy;
+//     const Extractjwt = jwt.ExtractJwt // peromite extraer el token de cookies, headers, aprams o body
+
+//     passport.use("jwt", new jwtStrategy(
+//         {
+
+//         }
+//     ))
+// }
+
+// const cookieExtractor = (req) => {
+//     let token = null //si no hay token es null
+//     if (req && req.cookies) {
+//         token = req.cookies["token-cookies"]
+//     }
+//     return token;
+// }
 
 export { initializePassport };

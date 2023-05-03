@@ -1,6 +1,6 @@
 <div>
     <h1>Lista de Productos buscados</h1>
-    <h2>Bienvenido: {{userData.user}}, tu pérfil de usuario es: {{userData.rol}}</h2>
+    <h2>Bienvenido: {{userData.user}}, tu pérfil de usuario es: {{userData.rol}} y tu carrito es{{userData.cart}}</h2>
     <div>
         <form method="post" action="/api/session/logout">
         <button type="submit">Log Out!</button>
@@ -19,7 +19,8 @@
             <p>Stock: {{stock}} </p>
             <p>Category: {{category}} </p>
             <p>Status: {{status}}</p><br>
-            <button>Agreguar al carrito</button>
+            <form method="post" action="/api/carts/{{userData.cart}}/product/{{id}}">
+            <button>Agreguar al carrito</button></form>
             </li>
             {{/each}}
         </ul>
