@@ -5,7 +5,6 @@ import { __dirname } from "./utils.js"
 import ChatManager from "./dao/db-managers/chat.manager.js"
 import authRouter from "./routes/Auth.router.js";
 
-
 import express from "express";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
@@ -16,6 +15,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import { initializePassport } from "./config/passport.config.js";
+import { options } from "./config/options.js";
 import jwt from "jsonwebtoken";
 
 const app = express();
@@ -43,9 +43,9 @@ app.set("views", path.join(__dirname, "/views")); //tengo que i ar la ruta absol
 
 app.use(session({
   store: MongoStore.create({
-    mongoUrl: "mongodb+srv://nicoabr:mipassword1234@cluster0.wlygjnj.mongodb.net/ecommerce?retryWrites=true&w=majority",
+    mongoUrl: options.mongoDB.URL,
   }),
-  secret: "SecretKey",
+  secret: options.server.secretSession,
   resave: true,
   saveUninitialized: true,
 
@@ -56,10 +56,10 @@ initializePassport();
 app.use(passport.initialize());//nuestro server inicializa passport
 app.use(passport.session()); //Una vez que me autentico con passport, automaticamente me crea la session de ese usuarrio
 
-
+export const port = options.server.port;
 //Socket.io// Comunicación servidor - cliente por Web Socket
-const httpServer = app.listen(8080, () => { //instancia de servidor HTTP
-  console.log("server listening on port 8080");
+const httpServer = app.listen(port, () => { //instancia de servidor HTTP
+  console.log(`server listening on port ${port}`);
 });
 
 const io = new Server(httpServer);
@@ -99,6 +99,6 @@ app.use("/api/session", authRouter);
 
 
 //Mongoose//
-mongoose.connect("mongodb+srv://nicoabr:mipassword1234@cluster0.wlygjnj.mongodb.net/ecommerce?retryWrites=true&w=majority").then((conn) => {
+mongoose.connect(options.mongoDB.URL).then((conn) => {
   console.log("Connected to DB!!!")
 })
