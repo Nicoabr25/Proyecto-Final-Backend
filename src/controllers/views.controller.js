@@ -7,7 +7,7 @@ const chatManager = new ChatManager();
 export const GetRealTimeProductsController = async (req, res) => {
     const { limit, page, sort, queryKey, queryParam } = req.query
     const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
-    res.render("real_time_products", { products, style: "index2" })
+    res.render("real_time_products", { products, style: "index2", sectionName: "main" })
 }
 
 export const ChatController = async (req, res) => {
@@ -19,39 +19,39 @@ export const ChatController = async (req, res) => {
     }
 }
 
-export const ProductViewControlelr = async (req, res) => {
+export const ProductViewController = async (req, res) => {
     console.log(req.session)
     const userData = req.session
     const { page } = req.query;
     const products = await productModel.paginate(
-        {}, { limit: 5, lean: true, page: page ?? 1 }
+        {}, { limit: 4, lean: true, page: page ?? 1 }
     );
-    res.render("products", { products, style: "index", userData })
+    res.render("products", { products, style: "index", sectionName: "productos", userData })
 }
 
 export const HomeController = async (req, res) => {
     const { limit, page, sort, queryKey, queryParam } = req.query
     const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
-    res.render("home", { products, style: "index" }) // home.handlebars le paso el style de css
+    res.render("home", { products, style: "indexhome", sectionName: "main" }) // home.handlebars le paso el style de css
 }
 
 export const LoginViewController = async (req, res) => {
     const userData = req.session
-    res.render("_login", { style: "login", userData })
+    res.render("_login", { style: "login", sectionName: "main", userData })
 }
 
 export const ProfileViewController = async (req, res) => {
     console.log(req.session)
     const userData = req.session
-    res.render("_profile", { style: "index", userData })
+    res.render("_profile", { style: "index", sectionName: "main", userData })
 }
 
 export const ForgotViewController = async (req, res) => {
     console.log(req.session)
     const userData = req.session
-    res.render("_forgot", { style: "index", userData })
+    res.render("_forgot", { style: "index", sectionName: "main", userData })
 }
 
 export const SignupViewContoller = async (req, res) => {
-    res.render("_signup", { style: "index" })
+    res.render("_signup", { style: "index", sectionName: "main" })
 }

@@ -1,4 +1,4 @@
-<div>
+<div class = "producto__article">
     <h1>Lista de Productos buscados</h1>
     <h2>Bienvenido: {{userData.user}}, tu pérfil de usuario es: {{userData.rol}} y tu carrito es{{userData.cart}}</h2>
     <div>
@@ -7,23 +7,25 @@
         </form>
     </div>
     <div id="prodList">
-        <ul>
             {{#each products.docs}}
-            <li>
-            <p>Id: {{id}}</p>
-            <p>Title: {{title}}</p>
-            <p>Description: {{description}}</p>
-            <p>Price: {{price}} </p>
-            <p>Thumbnail: {{thumbnail}} </p>
-            <p>Code: {{code}}</p>
-            <p>Stock: {{stock}} </p>
-            <p>Category: {{category}} </p>
-            <p>Status: {{status}}</p><br>
-            <form method="post" action="/api/carts/{{userData.cart}}/product/{{id}}">
-            <button>Agreguar al carrito</button></form>
-            </li>
+                <div class="tarjeta">
+                        <div class="tarjeta__imagen">
+                            <img src={{thumbnail}} alt={{description}}>
+                        </div>
+                        <div class="tarjeta__info">
+                            <h3>{{title}}</h3>
+                            <p><strong>ID:</strong>{{id}}</p>
+                            <p><strong>Category:</strong> {{category}}</p>
+                            <p>{{description}}</p>
+                            <h4>Precio: AR$ {{price}}</h4>
+                        </div>
+                        <div class="tarjeta__button">
+                            <form method="post" action="/api/carts/{{userData.cart}}/product/{{id}}">
+                            <button>Agreguar al carrito</button>
+                            </form>
+                        </div>;
+                </div>
             {{/each}}
-        </ul>
     </div>
     {{#if products.hasPrevPage}}
         <a href="/products?page={{products.prevPage}}">Anterior</a>

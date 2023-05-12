@@ -63,7 +63,7 @@ export const updateProductController = async (req, res) => {
     }
 };
 
-export const deleteProductControlelr = async (req, res) => {
+export const deleteProductController = async (req, res) => {
     try {
         const { pid } = req.params;
         const id = pid;

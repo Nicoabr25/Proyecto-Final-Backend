@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { getProductsController, getProductbyIdController, createProductController, updateProductController, deleteProductControlelr } from "../controllers/products.controller.js";
+import { getProductsController, getProductbyIdController, createProductController, updateProductController, deleteProductController } from "../controllers/products.controller.js";
 
 const productRouter = Router();
 productRouter.use(json());
@@ -17,6 +17,6 @@ productRouter.post("/", createProductController);
 productRouter.put("/:pid", updateProductController);
 
 //Ruta para eliminar producto//
-productRouter.delete("/:pid", deleteProductControlelr);
+productRouter.delete("/:pid", deleteProductController);
 
 export default productRouter;

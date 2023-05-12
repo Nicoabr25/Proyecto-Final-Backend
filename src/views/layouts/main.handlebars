@@ -30,16 +30,20 @@
                 </div>
             </nav>
     </header>
-    {{!-- <div>
-        <a href="/">Home</a>
-        <a href="/products">Productos</a>
-        <a href="/login">LogIn</a>
-        <a href="/signup">Registro</a>
-        <a href="/profile">Perfil</a>
-    </div> --}}
-<section id="main">
+<section id="{{sectionName}}">
     {{{body}}} 
 </section>
-    {{!--//hom.handlebars se renderiza aca --}}
+<footer id="footer">
+    <div class="footer sticky-bottom">
+        <img class="footer__imagen px-3" src="./img/logofooter4.png" alt="logo del footer">
+        <ul class="px-3">
+            <li><a href="" alt="contacto"><i class="bi-telephone"></i></a></li>
+            <li><a href="https://twitter.com/" target="_blank"><i class="bi-twitter" alt="Twitter"></i></a></li>
+            <li><a href="https://www.instagram.com/" target="_blank"><i class="bi-instagram" alt="Instagram"></i></a></li>
+        </ul>
+        </div>
+    </footer>
+    <!---------------------------------------------- Bootstrap JS Script ---------------------------------------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>

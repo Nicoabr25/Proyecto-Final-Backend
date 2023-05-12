@@ -1,18 +1,80 @@
 <div> {{!-- todo esto se inserta en el body de main.handlebars --}}
-    <h1>Bienvenido</h1>
-{{!-- <ul>
-    {{#each products}}
-        <li>
-            <p>Id: {{id}}</p>
-            <p>Title: {{title}}</p>
-            <p>Description: {{description}}</p>
-            <p>Price: {{price}} </p>
-            <p>Thumbnail: {{thumbnail}} </p>
-            <p>Code: {{code}}</p>
-            <p>Stock: {{stock}} </p>
-            <p>Category: {{category}} </p>
-            <p>Status: {{status}}</p>
-        </li>
-    {{/each}}
-</ul> --}}
+<<div class="banner">
+            <div class="banner__img">
+            <img src="./img/logonegro2.png" alt="Banner Aroma cafe">
+            </div>
+            <div class="banner__text">
+                <h1>Bienvenidos</h1>
+                <h2>Somos amantes del buen cafe.</h2>
+                <label for="email">Suscribite a nuestro newsletter</label>
+                <form action="#" method="post" enctype="text/plain">
+                    <input class="dato" type="email" placeholder="Ingresa tu e-mail" name="email">
+                    <input class="button" type="submit" value="Suscribirme">
+                </form>
+            </div>
+        </div>
+        <section id="carrousel">
+            <div id="carouselExampleCaptions" class="carousel slide"  data-bs-ride="false">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
+                        aria-label="Slide 1"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="./img/planta1.jpg" class="d-block img-fluid" alt="Planta de café con fruto para siembra">
+                        <div class="carousel-caption">
+                            <h2>Siembra</h2>
+                            <p>La mayoría de plantaciones se encuentran por encima de los 600 metros sobre el nivel del mar. La planta del cafe, conocida como el cafeto, tarda entre 2 y 4 años en crecer y dar sus primeros frutos. Entre la floración y la cosecha de café pasan entre 6 y 11 meses, según el clima y las precipitaciones. </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/picking1.jpg" class="d-block img-fluid" alt="Proceso de Picking">
+                        <div class="carousel-caption">
+                            <h2>Picking</h2>
+                            <p>Proceso manual y selectivo de escoger y recoger las bayas en pleno estadio de madurez, dejando en las plantas las que todavía se encuentren verdes. La cosecha que así se obtiene es más homogénea y, por ende, de mayor calidad. </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/procesamiento1.jpg" class="d-block img-fluid" alt="Procesamiento de los granos">
+                        <div class="carousel-caption">
+                            <h2>Procesamiento</h2>
+                            <p>Esta es la etapa de beneficiado o extracción de los granos de la baya, para entonces proceder a secarlos. Existe una técnica húmeda y una seca para convertir los granos limpios recolectados en un producto listo para las siguientes fases. </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/tueste1.jpg" class="d-block | img-fluid" alt="Tostado de los granos">
+                        <div class="carousel-caption">
+                            <h2>Tostado</h2>
+                            <p>En esta etapa, el producto adquiere el sabor y aroma particular por el que reconoces tu deliciosa taza diaria de café. Para lograrlo, el grano se procesa en hornos a elevadas temperatura.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/cata1.jpg" class="d-block img-fluid" alt="Utilziación del café">
+                        <div class="carousel-caption">
+                            <h2>Preparaciones</h2>
+                            <p>En Aroma caffee utilizamos los mejores granos de altura. Cuidamos en cada proceso todos los aspectos del grano, para preparar el mejor café.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>>
 </div>
+

@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { GetRealTimeProductsController, ChatController, ProductViewControlelr, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller } from "../controllers/views.controller.js";
+import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller } from "../controllers/views.controller.js";
 
 
 const viewsRouter = Router();
@@ -12,7 +12,7 @@ viewsRouter.get("/real-time-products", GetRealTimeProductsController)
 viewsRouter.get("/chat", ChatController)
 
 //Ruta para la view de productos//
-viewsRouter.get("/products", ProductViewControlelr);
+viewsRouter.get("/products", ProductViewController);
 
 //Ruta para la view de homes//
 viewsRouter.get("/", HomeController);
