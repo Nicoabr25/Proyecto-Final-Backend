@@ -4,7 +4,7 @@ import userModel from "../dao/models/user.models.js";
 import { createHash, isValid } from "../utils.js";
 import GithubStrategy from "passport-github2";
 import jwt from "passport-jwt";
-import { CartManager } from "../dao/index.js";
+import { CartManager } from "./persistance.js";
 
 const cart = new CartManager;
 const initializePassport = () => { //passport trabaja con username y password, pero yo habia usado email, entonces lo que hago en la estrategia es asignar el dato de email ausername

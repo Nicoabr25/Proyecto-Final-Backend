@@ -1,4 +1,4 @@
-import { ProductManager } from "../dao/index.js";
+import { ProductManager } from "../config/persistance.js";
 
 const manager = new ProductManager();
 

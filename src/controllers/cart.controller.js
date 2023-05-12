@@ -1,4 +1,4 @@
-import { CartManager } from "../dao/index.js";
+import { CartManager } from "../config/persistance.js";
 import { manager } from "../controllers/products.controller.js"
 
 
