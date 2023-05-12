@@ -1,68 +1,34 @@
 import { Router, json } from "express";
-import { manager } from "./products.router.js";
-import ChatManager from "../dao/db-managers/chat.manager.js";
-import productModel from "../dao/models/products.models.js"
+import { GetRealTimeProductsController, ChatController, ProductViewControlelr, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller } from "../controllers/views.controller.js";
 
 
 const viewsRouter = Router();
 viewsRouter.use(json());
 
-const chatManager = new ChatManager();
+//Ruta para los real time Products mediante socket.io//
+viewsRouter.get("/real-time-products", GetRealTimeProductsController)
 
+//Ruta para chat mediante socket.io//
+viewsRouter.get("/chat", ChatController)
 
-viewsRouter.get("/real-time-products", async (req, res) => {
-    const { limit, page, sort, queryKey, queryParam } = req.query
-    const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
-    res.render("real_time_products", { products, style: "index2" })
-})
+//Ruta para la view de productos//
+viewsRouter.get("/products", ProductViewControlelr);
 
-viewsRouter.get("/chat", async (req, res) => {
-    try {
-        const messages = await chatManager.getMessages();
-        res.render("chat", { messages: messages })
-    } catch (Error) {
-        console.log("No se pudieron obtener los chats")
-    }
-})
+//Ruta para la view de homes//
+viewsRouter.get("/", HomeController);
 
-viewsRouter.get("/products", async (req, res) => {
-    console.log(req.session)
-    const userData = req.session
-    const { page } = req.query;
-    const products = await productModel.paginate(
-        {}, { limit: 5, lean: true, page: page ?? 1 }
-    );
-    res.render("products", { products, style: "index", userData })
-});
+//Ruta para la view de Login//
+viewsRouter.get("/login", LoginViewController);
 
-viewsRouter.get("/", async (req, res) => {
-    const { limit, page, sort, queryKey, queryParam } = req.query
-    const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
-    res.render("home", { products, style: "index" }) // home.handlebars le paso el style de css
-});
+//Ruta para la view de profile//
+viewsRouter.get("/profile", ProfileViewController);
 
-viewsRouter.get("/login", async (req, res) => {
-    const userData = req.session
-    res.render("_login", { style: "login", userData })
-});
-
-viewsRouter.get("/profile", async (req, res) => {
-    console.log(req.session)
-    const userData = req.session
-    res.render("_profile", { style: "index", userData })
-});
-
-viewsRouter.get("/forgot", async (req, res) => {
-    console.log(req.session)
-    const userData = req.session
-    res.render("_forgot", { style: "index", userData })
-});
+//Ruta para la view de forgot//
+viewsRouter.get("/forgot", ForgotViewController);
 
 //autentificación//
-
-viewsRouter.get("/signup", async (req, res) => {
-    res.render("_signup", { style: "index" })
-});
+//Ruta para la view de Signup//
+viewsRouter.get("/signup", SignupViewContoller);
 
 
 export default viewsRouter;
