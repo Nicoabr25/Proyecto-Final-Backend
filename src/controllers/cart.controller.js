@@ -2,7 +2,7 @@ import { CartManager } from "../config/persistance.js";
 import { manager } from "../controllers/products.controller.js"
 
 
-const cartManager = new CartManager();
+export const cartManager = new CartManager();
 
 export const getCartController = async (req, res) => {
     try {

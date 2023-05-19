@@ -82,7 +82,8 @@ const initializePassport = () => { //passport trabaja con username y password, p
                         name: profile.displayName,
                         email: profile.username,
                         password: createHash(profile.id), //uso el id de github para crear la contraseña
-                        rol: "user"
+                        rol: "user",
+                        cart: await cart.addCart()
                     };
                     const userCreated = await userModel.create(newUser);
                     return done(null, userCreated);

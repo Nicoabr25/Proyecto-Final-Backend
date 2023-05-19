@@ -1,16 +1,15 @@
 <div>
     <h1>Profile</h1>
     <h2>Bienvenido a tu perfil {{userData.user}}.</h2><br>
-    <p>Tu tipo de usuario es: {{userData.rol}} </p>
-    <p>{{userData.user.cart.object._id}}</p>
-
+    <p>Tu tipo de usuario es: {{userData.rol}} </p><br>
+    <p>Tu carrito es: {{userData.cartid}}</p><br>
     <h1>Vista del carrito</h1>
-{{#if _id}}
+{{#if userData.cart}}
     {{#if products}}
         <h2>Listado de productos agregados</h2>
         {{#each products}}
             <div>
-                <p>{{this.id.title}}</p>
+                <p>{{this._id}}</p>
                 <p>Cantidad: {{this.quantity}}</p>
             </div>
         {{/each}}

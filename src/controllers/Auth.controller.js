@@ -8,10 +8,13 @@ export const passportStrategySignupController = passport.authenticate("signupStr
 
 export const SignupRedirectController = (req, res) => {
     req.session.user = req.user.name
+    req.session.userid = req.user._id.toString()
     req.session.email = req.user.email
     req.session.rol = req.user.rol
-    req.session.cartid = req.user.cart._id
-    console.log(req.session);
+    req.session.age = req.user.age
+    req.session.cart = req.user.cart
+    req.session.cartid = req.user.cart[0]._id.toString()
+    // console.log(req.session);
     res.redirect("/profile");
 };
 
@@ -48,9 +51,12 @@ export const LoginController = async (req, res) => {
             res.send(`Usuario inexistente, haz click  <a href="/signup">Aquí</a> para registrarte`)
         } else if (email === user.email & isValid(user, password) == true) {
             req.session.user = user.name
+            req.session.userid = user._id.toString()
             req.session.email = user.email
             req.session.rol = user.rol
             req.session.age = user.age
+            req.session.cart = user.cart
+            req.session.cartid = user.cart[0]._id.toString()
             console.log(req.session)
             res.redirect("/products")
         } else {

@@ -422,9 +422,9 @@ p {
 }
 
 .tarjeta__info {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
     text-align: justify;
-    padding: 0% 5%;
+    padding: 2% 5%;
 }
 
 .tarjeta__info h3,
@@ -435,12 +435,13 @@ h4 {
     font-size: 1.2rem;
     font-weight: 500;
     height: 25px;
+    padding: 0.5rem;
 }
 
 .tarjeta__info p {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     height: fit-content;
     font-size: 1rem;
     margin-top: 0.5rem;
@@ -450,7 +451,7 @@ h4 {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0rem;
+    margin: 0.1rem 0rem;
 }
 
 .tarjeta__button button {
@@ -471,6 +472,28 @@ h4 {
     background-color: #3CA6A6;
 }
 
+.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination a {
+    margin: 0 10px 0 10px;
+    color: #212529;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.5rem 0rem;
+}
+
+.pagination span {
+    color: 212529;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.5rem 0rem;
+}
+
 @media screen and (min-width: 0px) and (max-width: 429px) {
     .tarjeta {
         height: 300px;
@@ -478,13 +501,68 @@ h4 {
     }
 
     .tarjeta__imagen {
-        padding: 1rem;
-        height: 150px;
-        margin-bottom: 10px;
+        padding: 0.5rem;
+        height: 120px;
+        margin-bottom: 3px;
     }
 
     .tarjeta__imagen img {
         width: 100%;
+        height: 80%;
+        transition: all 1s;
+        padding-top: 0.5rem;
+    }
+
+    .tarjeta__imagen img:hover {
+        transform: scale(1.1, 1.1);
+    }
+
+    .tarjeta__info {
+        margin-bottom: 2%;
+        padding: 0% 2%;
+    }
+
+    .tarjeta__info h3,
+    h4 {
+        font-size: 1rem;
+        font-weight: 500;
+        height: 20px;
+        padding: 0.2rem;
+        margin-top: 0.2rem;
+    }
+
+    .tarjeta__info p {
+        height: 25px;
+        font-size: 0.8rem;
+        margin-top: 0.2rem;
+    }
+
+    .tarjeta__button {
+        margin: 0rem 0rem;
+    }
+
+    .tarjeta__button button {
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media screen and (min-width: 429px) and (max-width: 768px) {
+    .tarjeta {
+        height: 380px;
+        width: 280px;
+    }
+
+    .tarjeta__imagen {
+        padding: 0.5rem;
+        height: 180px;
+        margin-bottom: 0px;
+    }
+
+    .tarjeta__imagen img {
+        width: 100%;
+        height: 90%;
+        margin-top: 0.2rem;
+        padding-top: 1rem;
         transition: all 1s;
     }
 
@@ -502,59 +580,11 @@ h4 {
         font-size: 1rem;
         font-weight: 500;
         height: 20px;
-    }
-
-    .tarjeta__info p {
-        height: 40px;
-        font-size: 0.8rem;
-        margin: 0.5rem 0rem;
-    }
-
-    .tarjeta__button {
-        margin: 0.2rem 0rem;
-    }
-
-    .tarjeta__button button {
-        padding: 0.5rem 1rem;
-    }
-}
-
-@media screen and (min-width: 429px) and (max-width: 768px) {
-    .tarjeta {
-        height: 380px;
-        width: 280px;
-    }
-
-    .tarjeta__imagen {
-        padding: 1rem;
-        height: 200px;
         margin-bottom: 10px;
     }
 
-    .tarjeta__imagen img {
-        width: 100%;
-        transition: all 1s;
-    }
-
-    .tarjeta__imagen img:hover {
-        transform: scale(1.1, 1.1);
-    }
-
-    .tarjeta__info {
-        margin-bottom: 2%;
-        padding: 0% 2%;
-    }
-
-    .tarjeta__info h3,
-    h4 {
-        font-size: 1rem;
-        font-weight: 500;
+    .tarjeta__info p {
         height: 25px;
-        margin-bottom: 10px;
-    }
-
-    .tarjeta__info p {
-        height: 45px;
         font-size: 0.8rem;
         margin: 0.5rem 0rem;
     }
