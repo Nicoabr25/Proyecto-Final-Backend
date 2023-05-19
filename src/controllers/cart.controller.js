@@ -44,6 +44,11 @@ export const AddProducttoCartController = async (req, res) => {
     try {
         let product = await manager.getProductbyId(prodId);
         await cartManager.addProducttoCart(cartId, product);
+        // Swal.fire({
+        //     title: `Producto con id: ${prodId} agregado al carrito con id: ${cartId}`,
+        //     toast: true, //para que se vaya de la pantalla solo
+        //     position: "top-end",
+        // });
         res.send(`Producto con id: ${prodId} agregado al carrito con id: ${cartId}`);
     } catch (e) {
         res.status(404).send(`No se pudo agregar el producto con id: ${prodId} al carrito con id: ${cartId}`)
@@ -68,5 +73,15 @@ export const DeleteCartController = async (req, res) => {
         res.send({ status: "succes", payload: "Se ha eliminado el carrito" })
     } catch { Erro } {
         res.send({ status: "Error", payload: " No se ha eleiminado el carrito" })
+    }
+}
+
+export const GetProductsinCart = async (req, res) => {
+    try {
+        const { cid } = req.params;
+        const productsInCart = await cartManager.getCartProducts(cid);
+        res.status(201).send(productsInCart)
+    } catch (error) {
+        res.send({ status: "Error", payload: " No se pudieron obtener los productos del carrito" })
     }
 }

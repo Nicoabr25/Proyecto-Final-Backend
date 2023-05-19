@@ -19,11 +19,15 @@ class CartManager {
     }
 
     async getCartbyId(id) {
-        const cartFilter = await cartModel.findById(id);
-        if (!cartFilter) {
-            console.log("Carrito no encontrado");
-        } else {
-            return cartFilter;
+        try {
+            const cartFilter = await cartModel.findById(id).populate("products.product").lean();
+            if (!cartFilter) {
+                console.log("Carrito no encontrado");
+            } else {
+                return cartFilter;
+            }
+        } catch (error) {
+            return [];
         }
     }
 

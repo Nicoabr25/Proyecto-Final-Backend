@@ -16,7 +16,6 @@ cartSchema.pre("find", function () {
     this.populate("products.product")//se refiere a la propiedad "product" del campo "products" de carrito
 });
 
-cartSchema.plugin(mongoosePaginate)
 
 const cartModel = mongoose.model(cartCollection, cartSchema); //lo guarda en la colección carts
 export default cartModel;

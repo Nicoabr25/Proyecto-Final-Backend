@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController } from "../controllers/cart.controller.js";
+import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart } from "../controllers/cart.controller.js";
 
 const cartRouter = Router();
 cartRouter.use(json());
@@ -21,5 +21,8 @@ cartRouter.delete("/:cid/product/:pid", DeleteProductFromCartController);
 
 //Ruta para borrar el carrito//
 cartRouter.delete("/:cid", DeleteCartController)
+
+//Ruta para obtener Productos del carrito//
+cartRouter.get("/:cid/product", GetProductsinCart)
 
 export default cartRouter;
