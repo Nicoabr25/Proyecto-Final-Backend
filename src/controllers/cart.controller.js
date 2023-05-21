@@ -44,11 +44,6 @@ export const AddProducttoCartController = async (req, res) => {
     try {
         let product = await manager.getProductbyId(prodId);
         await cartManager.addProducttoCart(cartId, product);
-        // Swal.fire({
-        //     title: `Producto con id: ${prodId} agregado al carrito con id: ${cartId}`,
-        //     toast: true, //para que se vaya de la pantalla solo
-        //     position: "top-end",
-        // });
         res.send(`Producto con id: ${prodId} agregado al carrito con id: ${cartId}`);
     } catch (e) {
         res.status(404).send(`No se pudo agregar el producto con id: ${prodId} al carrito con id: ${cartId}`)

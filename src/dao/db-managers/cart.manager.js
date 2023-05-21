@@ -21,6 +21,7 @@ class CartManager {
     async getCartbyId(id) {
         try {
             const cartFilter = await cartModel.findById(id).populate("products.product").lean();
+            console.log(cartFilter)
             if (!cartFilter) {
                 console.log("Carrito no encontrado");
             } else {
