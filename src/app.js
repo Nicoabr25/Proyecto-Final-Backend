@@ -97,8 +97,7 @@ app.use("/signup", viewsRouter);
 app.use("/api/session", authRouter);
 
 
-
 //Mongoose//
-mongoose.connect(options.mongoDB.URL).then((conn) => {
-  console.log("Connected to DB!!!")
-})
+// mongoose.connect(options.mongoDB.URL).then((conn) => {
+//   console.log("Connected to DB!!!")
+// })
