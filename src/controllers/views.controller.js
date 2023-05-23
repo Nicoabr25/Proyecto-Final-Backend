@@ -24,9 +24,10 @@ export const ChatController = async (req, res) => {
 
 export const ProductViewController = async (req, res) => {
     // console.log(req.session)
+    // const products = await productModel.paginate({}, { limit: 4, lean: true, page: page ?? 1 });
     const userData = req.session
-    const { page } = req.query;
-    const products = await productModel.paginate({}, { limit: 4, lean: true, page: page ?? 1 });
+    const { limit, page } = req.query;
+    const products = await manager.getProducts(limit, page)
     res.render("products", { products, userData, style: "index", sectionName: "productos" })
 }
 
@@ -47,7 +48,7 @@ export const ProfileViewController = async (req, res) => {
     const userData = req.session
     const cartProduct = await cartManager.getCartbyId(userData.cartid)
     console.log(cartProduct)
-    res.render("_profile", { userData, cartProduct, style: "index", sectionName: "main" })
+    res.render("_profile", { userData, cartProduct, style: "index", sectionName: "profile" })
 }
 
 export const ForgotViewController = async (req, res) => {
@@ -57,5 +58,5 @@ export const ForgotViewController = async (req, res) => {
 }
 
 export const SignupViewContoller = async (req, res) => {
-    res.render("_signup", { style: "index", sectionName: "main" })
+    res.render("_signup", { style: "index", sectionName: "Signup" })
 }

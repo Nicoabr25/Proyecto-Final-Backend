@@ -12,7 +12,7 @@ const cartSchema = new mongoose.Schema({
     }
 });
 
-cartSchema.pre("find", function () {
+cartSchema.pre("findOne", function () {
     this.populate("products.product")//se refiere a la propiedad "product" del campo "products" de carrito
 });
 

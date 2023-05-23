@@ -2,6 +2,7 @@ import { CartManager } from "../config/persistance.js";
 import { manager } from "../controllers/products.controller.js"
 
 
+
 export const cartManager = new CartManager();
 
 export const getCartController = async (req, res) => {
@@ -39,14 +40,11 @@ export const getCartByIdController = async (req, res) => {
 
 export const AddProducttoCartController = async (req, res) => {
     const { cid, pid } = req.params;
-    const prodId = pid;
-    const cartId = cid;
     try {
-        let product = await manager.getProductbyId(prodId);
-        await cartManager.addProducttoCart(cartId, product);
-        res.send(`Producto con id: ${prodId} agregado al carrito con id: ${cartId}`);
-    } catch (e) {
-        res.status(404).send(`No se pudo agregar el producto con id: ${prodId} al carrito con id: ${cartId}`)
+        await cartManager.addProducttoCart(cid, pid);
+        res.send(`Producto con id: ${pid} agregado al carrito con id: ${cid}`);
+    } catch (error) {
+        res.status(404).send(`No se pudo agregar el producto con id: ${pid} al carrito con id: ${cid}`)
     }
 
 }
@@ -65,9 +63,9 @@ export const DeleteCartController = async (req, res) => {
     try {
         const { cid } = req.params;
         await cartManager.deleteCart(cid);
-        res.send({ status: "succes", payload: "Se ha eliminado el carrito" })
-    } catch { Erro } {
-        res.send({ status: "Error", payload: " No se ha eleiminado el carrito" })
+        return res.send("Se ha eliminado el carrito")
+    } catch { error } {
+        return res.send({ status: "error", payload: " No se ha eleiminado el carrito" })
     }
 }
 

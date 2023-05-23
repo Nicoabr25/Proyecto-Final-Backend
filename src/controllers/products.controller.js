@@ -7,7 +7,7 @@ const manager = new ProductManager();
 export const getProductsController = async (req, res) => {
     try {
         const { limit, page, sort, queryKey, queryParam } = req.query;
-        const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
+        const products = await manager.getProducts(page);
         res.send({ status: "success", payload: products });
 
     } catch (e) {
@@ -66,8 +66,7 @@ export const updateProductController = async (req, res) => {
 export const deleteProductController = async (req, res) => {
     try {
         const { pid } = req.params;
-        const id = pid;
-        await manager.deleteProduct(id);
+        await manager.deleteProduct(pid);
         const products = await manager.getProducts();
         req.io.emit("deleted-product", products);
         res.send("Producto Eliminado")

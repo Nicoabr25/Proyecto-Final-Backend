@@ -13,10 +13,11 @@ class ProductManager {
   }
 
 
-  async getProducts() {
+  async getProducts(limit, page, sort, queryKey, queryParam) {
     try {
-      const products = await fs.promises.readFile(path, "utf-8");
-      return JSON.parse(products);
+      const productsFromFile = await fs.promises.readFile(path, "utf-8");
+      const products = JSON.parse(productsFromFile)
+      return products;
     } catch (error) {
       return [];
     }
@@ -24,7 +25,7 @@ class ProductManager {
 
   async getProductbyId(id) {
     const products = await this.getProducts();
-    const productsFilter = products.find((prod) => prod.id == id);
+    const productsFilter = products.find((prod) => prod._id == id);
     if (!productsFilter) {
       console.log("Producto no encontrado");
     } else {
@@ -35,10 +36,9 @@ class ProductManager {
   async addProduct(title, description, price, thumbnail, code, stock, category, status) {
     const products = await this.getProducts();
     // const contador = await this.Contador();
-
     const newProduct = {
       //id: contador,title,description,price,thumbnail,code,stock,category, status,
-      id: nextID(products),
+      _id: nextID(products),
       title,
       description,
       price,
@@ -64,7 +64,7 @@ class ProductManager {
   async updateProduct(id, propModify) {
     //se pasa un id y un objeto con las propiedades a modificar
     const products = await this.getProducts(); //obtengo los productos del archivo
-    let aux = products.find((prod) => prod.id == id); //busco el producto a modificar
+    let aux = products.find((prod) => prod._id == id); //busco el producto a modificar
     if (!aux) {
       console.log(`El producto con id: ${id} no se encuentra en la base de datos`)
       throw new Error;
@@ -88,13 +88,14 @@ class ProductManager {
     }
   }
 
-  async deleteProduct(id) {
+  async deleteProduct(pid) {
     const products = await this.getProducts();
-    const verificacion = products.some(prod => prod.id == id)
+    const id = Number(pid)
+    const verificacion = products.some(prod => prod._id == id)
     if (!verificacion) {
       throw new Error;
     } else {
-      const aux = products.filter((prod) => prod.id !== id);
+      const aux = products.filter((prod) => prod._id !== id);
       await fs.promises.writeFile(path, JSON.stringify(aux)); //reescribo el archivo
       console.log(`Se ha eliminado el producto con el id : ${id}`);
     }

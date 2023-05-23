@@ -1,4 +1,5 @@
 import cartModel from "../models/carts.models.js"
+import productModel from "../models/products.models.js";
 
 // const fs = require("fs");
 
@@ -49,18 +50,16 @@ class CartManager {
 
 
 
-    async addProducttoCart(cartId, product) {
+    async addProducttoCart(cartId, prodId) {
         try {
-            const cart = await cartModel.findById(cartId)
-            const prod = cart.products.find(aux => aux._Id == product._id)
-            if (prod) {
-                prod.quantity += 1;
-                await cart.save()
-                await cart.populate("products.product").lean()
+            const cart = await cartModel.findById(cartId).populate("products.product");
+            const productIndex = cart.products.findIndex(prod => prod.product._id.toString() === prodId);
+            if (productIndex >= 0) {
+                cart.products[productIndex].quantity = cart.products[productIndex].quantity + 1;
+                cart.save();
             } else {
-                cart.products.push({ ProdId: product._id, quantity: 1 })
-                await cart.save();
-                await cart.populate("products.product")
+                cart.products.push({ product: prodId, quantity: 1 });
+                cart.save();
             }
         } catch (error) {
             throw new Error;

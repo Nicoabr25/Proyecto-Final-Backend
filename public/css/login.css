@@ -171,7 +171,7 @@ body {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto auto auto;
-    grid-template-areas: "header""main""footer";
+    grid-template-areas: "header" "main" "footer";
 }
 
 a {
@@ -250,7 +250,7 @@ p {
     background-size: 300% 300%;
     background-image: linear-gradient(-45deg, rgb(138, 234, 239) 0%, rgb(43, 175, 223) 25%, rgb(22, 141, 200) 51%, #a254ea 100%);
     -webkit-animation: AnimateBG 20s ease infinite;
-            animation: AnimateBG 20s ease infinite;
+    animation: AnimateBG 20s ease infinite;
 
 
 }
@@ -259,9 +259,11 @@ p {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -271,40 +273,48 @@ p {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
 }
 
-#main div{
+#main div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #48434659;
+    background-color: rgba(219, 234, 238, 0.4);
     border-radius: 1rem;
     margin: 10vh 15vw 0 15vw;
     padding: 15px;
 }
 
-#main form{
+#main form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#main input, button{
+#main input,
+button {
     margin: 5px 5px 2px 5px;
     padding: 2px;
     border-radius: 0.5rem;
 }
-#main button{
+
+#main button {
     width: 150px;
     height: 30px;
+}
+
+#main button:hover {
+    background-color: #3CA6A6;
 }
 
 /*-------Footer------*/
