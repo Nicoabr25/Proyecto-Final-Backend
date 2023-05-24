@@ -1,11 +1,11 @@
 import { CartManager } from "../config/persistance.js";
 import { manager } from "../controllers/products.controller.js"
-import { v4 as uuidv4 } from 'uuid'
-import { ticketsModel } from "../dao/models/ticket.model.js";
+import TicketManager from "../dao/db-managers/ticket.manager.js";
 
 
 
 export const cartManager = new CartManager();
+export const ticketManager = new TicketManager();
 
 export const getCartController = async (req, res) => {
     try {
@@ -108,15 +108,9 @@ export const PurchaseCart = async (req, res) => {
                     rejectedProducts.push(cartProduct)
                 }
             }
-            const newTicket = {
-                code: uuidv4(),
-                purchase_datetime: new Date().toLocaleString(),
-                amount: ticketProducts.reduce((acc, el) => acc + el.product.price * el.quantity, 0),
-                purchaser: req.session.email.toString()
-            }
-            const ticketCreated = await ticketsModel.create(newTicket)
-            console.log("ticket", ticketCreated)
-            res.send(ticketCreated)
+            const NewTicket = await ticketManager.newTicket(ticketProducts, req.session.email.toString())
+            console.log("ticket", NewTicket)
+            res.send(NewTicket)
         }
     } catch (error) {
         res.send({ status: "Error", payload: "No se puede finalizar la compra" })

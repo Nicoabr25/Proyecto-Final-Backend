@@ -11,16 +11,6 @@ class ProductManager {
   async getProducts(limit, page) {
     let limitOp = limit ? limit : 4;
     let pageOp = page ? page : 1;
-    // let sortOp = sort ? { price: sort } : null;
-    // let queryKeyOp = queryKey
-    // let queryParamsOp = queryParam;
-    // let Parametros = { limit: limitOp, lean: true, page: pageOp, sort: sortOp }
-    // let querySearch;
-    // if (queryKeyOp && queryParamsOp) {
-    //   querySearch = { [queryKeyOp]: [queryParamsOp] }
-    // } else {
-    //   { }
-    // }
     try {
       const products = await productModel.paginate({}, { limit: 4, lean: true, page: page ?? 1 })
       return products;
