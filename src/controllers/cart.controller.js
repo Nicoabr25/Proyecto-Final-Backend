@@ -88,9 +88,10 @@ export const notCartController = async (req, res) => {
 
 export const PurchaseCart = async (req, res) => {
     try {
+
         const { cid } = req.params;
         const cart = await cartManager.getCartbyId(cid)
-        if (cart == undefined) {
+        if (!cart) {
             res.send("carrito inexistente");
         } else {
             const ticketProducts = []
@@ -100,22 +101,21 @@ export const PurchaseCart = async (req, res) => {
             }
             for (let i = 0; i < cart.products.length; i++) {
                 const cartProduct = cart.products[i]
-                const productDB = await manager.getProductbyId(cartProduct._id)
+                const productDB = await manager.getProductbyId(cartProduct.product._id)
                 if (cartProduct.quantity <= productDB.stock) {
                     ticketProducts.push(cartProduct)
                 } else {
                     rejectedProducts.push(cartProduct)
                 }
             }
-            console.log("ticketProducts", ticketProducts)
-            console.log("rejectedProducts", rejectedProducts)
             const newTicket = {
                 code: uuidv4(),
                 purchase_datetime: new Date().toLocaleString(),
-                amount: ticketProducts.reduce((acc, el) => acc + el.price * el.quantity, 0),
-                purchaser: req.user.email
+                amount: ticketProducts.reduce((acc, el) => acc + el.product.price * el.quantity, 0),
+                purchaser: "prueba@email.com"
             }
             const ticketCreated = await ticketsModel.create(newTicket)
+            console.log("ticket", ticketCreated)
             res.send(ticketCreated)
         }
     } catch (error) {
