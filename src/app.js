@@ -95,6 +95,7 @@ app.use("/login", viewsRouter);
 app.use("/profile", viewsRouter);
 app.use("/signup", viewsRouter);
 app.use("/api/session", authRouter);
+app.use("/chat", viewsRouter)
 
 
 //Mongoose//

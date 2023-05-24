@@ -743,6 +743,37 @@ h2 {
 }
 
 /*-------Footer------*/
+#error {
+    grid-area: main;
+    min-height: 65vh;
+    background-color: #212529;
+}
+
+.errorPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 10%;
+    padding: 1rem 1rem;
+    background-color: rgba(219, 234, 238, 0.4);
+    border-radius: 1rem;
+}
+
+.errorPage img {
+    max-width: 40vw;
+    max-height: 40vh;
+    border-radius: 1rem;
+    margin-top: 30px;
+}
+
+.errorPage h1,
+h2 {
+    color: aliceblue;
+    font-weight: 500;
+}
+
+/*-------Footer------*/
 #footer {
     grid-area: footer;
     background-color: #212529;

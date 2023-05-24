@@ -1,6 +1,6 @@
 import { Router, json } from "express";
 import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller } from "../controllers/views.controller.js";
-
+import { checkRole } from "../middlewares/roles.js";
 
 const viewsRouter = Router();
 viewsRouter.use(json());
@@ -9,7 +9,7 @@ viewsRouter.use(json());
 viewsRouter.get("/real-time-products", GetRealTimeProductsController)
 
 //Ruta para chat mediante socket.io//
-viewsRouter.get("/chat", ChatController)
+viewsRouter.get("/chat", checkRole(["user"]), ChatController)
 
 //Ruta para la view de productos//
 viewsRouter.get("/products", ProductViewController);

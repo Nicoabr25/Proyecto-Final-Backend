@@ -1,5 +1,6 @@
 import { Router, json } from "express";
-import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart } from "../controllers/cart.controller.js";
+import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart, notCartController } from "../controllers/cart.controller.js";
+import { checkRole } from "../middlewares/roles.js";
 
 const cartRouter = Router();
 cartRouter.use(json());
@@ -14,7 +15,10 @@ cartRouter.post("/", createCartController);
 cartRouter.get("/:cid", getCartByIdController);
 
 //Ruta para agregar el producto (pid) al carrito (cid)//
-cartRouter.post("/:cid/product/:pid", AddProducttoCartController);
+cartRouter.post("/:cid/product/:pid", checkRole(["user"]), AddProducttoCartController);
+
+//Ruta de error al no crear carrito y no logearse
+cartRouter.post("/error", notCartController);
 
 //Ruta para borrar un producto (pid) del carrito (cid)//
 cartRouter.delete("/:cid/product/:pid", DeleteProductFromCartController);

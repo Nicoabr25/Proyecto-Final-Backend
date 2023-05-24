@@ -16,7 +16,8 @@ export const GetRealTimeProductsController = async (req, res) => {
 export const ChatController = async (req, res) => {
     try {
         const messages = await chatManager.getMessages();
-        res.render("chat", { messages: messages })
+        const userData = req.session
+        res.render("chat", { userData, style: "index", sectionName: "chat", messages: messages })
     } catch (Error) {
         console.log("No se pudieron obtener los chats")
     }

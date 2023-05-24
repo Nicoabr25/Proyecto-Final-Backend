@@ -78,3 +78,8 @@ export const GetProductsinCart = async (req, res) => {
         res.send({ status: "Error", payload: " No se pudieron obtener los productos del carrito" })
     }
 }
+
+export const notCartController = async (req, res) => {
+    const { pid } = req.params
+    res.render("error", { style: "index", sectionName: "error" })
+}
