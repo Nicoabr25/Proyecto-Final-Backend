@@ -112,7 +112,7 @@ export const PurchaseCart = async (req, res) => {
                 code: uuidv4(),
                 purchase_datetime: new Date().toLocaleString(),
                 amount: ticketProducts.reduce((acc, el) => acc + el.product.price * el.quantity, 0),
-                purchaser: "prueba@email.com"
+                purchaser: req.session.email.toString()
             }
             const ticketCreated = await ticketsModel.create(newTicket)
             console.log("ticket", ticketCreated)
