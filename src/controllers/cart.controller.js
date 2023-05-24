@@ -1,5 +1,7 @@
 import { CartManager } from "../config/persistance.js";
 import { manager } from "../controllers/products.controller.js"
+import { v4 as uuidv4 } from 'uuid'
+import { ticketsModel } from "../dao/models/ticket.model.js";
 
 
 
@@ -82,4 +84,41 @@ export const GetProductsinCart = async (req, res) => {
 export const notCartController = async (req, res) => {
     const { pid } = req.params
     res.render("error", { style: "index", sectionName: "error" })
+}
+
+export const PurchaseCart = async (req, res) => {
+    try {
+        const { cid } = req.params;
+        const cart = await cartManager.getCartbyId(cid)
+        if (cart == undefined) {
+            res.send("carrito inexistente");
+        } else {
+            const ticketProducts = []
+            const rejectedProducts = []
+            if (!cart.products.length) {
+                return req.send("No hay productos en el carrito, agreguelos...")
+            }
+            for (let i = 0; i < cart.products.length; i++) {
+                const cartProduct = cart.products[i]
+                const productDB = await manager.getProductbyId(cartProduct._id)
+                if (cartProduct.quantity <= productDB.stock) {
+                    ticketProducts.push(cartProduct)
+                } else {
+                    rejectedProducts.push(cartProduct)
+                }
+            }
+            console.log("ticketProducts", ticketProducts)
+            console.log("rejectedProducts", rejectedProducts)
+            const newTicket = {
+                code: uuidv4(),
+                purchase_datetime: new Date().toLocaleString(),
+                amount: ticketProducts.reduce((acc, el) => acc + el.price * el.quantity, 0),
+                purchaser: req.user.email
+            }
+            const ticketCreated = await ticketsModel.create(newTicket)
+            res.send(ticketCreated)
+        }
+    } catch (error) {
+        res.send({ status: "Error", payload: "No se puede finalizar la compra" })
+    }
 }

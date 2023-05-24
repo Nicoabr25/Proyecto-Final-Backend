@@ -29,4 +29,7 @@ cartRouter.delete("/:cid", DeleteCartController)
 //Ruta para obtener Productos del carrito//
 cartRouter.get("/:cid/product", GetProductsinCart)
 
+//Ruta para confirmar la compra//
+cartRouter.post("/:cid/purchase", PurchaseCart)
+
 export default cartRouter;

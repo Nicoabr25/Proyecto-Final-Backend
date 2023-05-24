@@ -23,10 +23,13 @@ export const passportFailedSignupController = (req, res) => {
 }
 
 export const CurrentController = (req, res) => {
-    if (req.session) {
-        return res.send({ userInfo: req.session });
+    const userData = req.session
+    if (userData.user) {
+        const userInfo = [{ name: userData.user, email: createHash(userData.email), rol: userData.rol, cartId: userData.cartid }]
+        return res.send(userInfo);
+    } else {
+        res.send("Usuario No Logueado");
     }
-    res.send("Usuario No Logueado");
 }
 
 export const GithubSignupController = passport.authenticate("githubSignup");
