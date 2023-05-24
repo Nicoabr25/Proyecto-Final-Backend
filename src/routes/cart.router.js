@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart, notCartController } from "../controllers/cart.controller.js";
+import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart, notCartController, PurchaseCart } from "../controllers/cart.controller.js";
 import { checkRole } from "../middlewares/roles.js";
 
 const cartRouter = Router();
