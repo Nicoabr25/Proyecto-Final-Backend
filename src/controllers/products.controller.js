@@ -2,8 +2,6 @@ import { ProductManager } from "../config/persistance.js";
 
 const manager = new ProductManager();
 
-
-
 export const getProductsController = async (req, res) => {
     try {
         const { limit, page, sort, queryKey, queryParam } = req.query;

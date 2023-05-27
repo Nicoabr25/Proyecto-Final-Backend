@@ -45,10 +45,9 @@ export const LoginViewController = async (req, res) => {
 }
 
 export const ProfileViewController = async (req, res) => {
-    console.log(req.session)
+    // console.log(req.session)
     const userData = req.session
     const cartProduct = await cartManager.getCartbyId(userData.cartid)
-    console.log(cartProduct)
     res.render("_profile", { userData, cartProduct, style: "index", sectionName: "profile" })
 }
 

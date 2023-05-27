@@ -17,6 +17,7 @@ class TicketManager {
                 amount: amount,
                 purchaser: purchaser
             }
+            console.log("newTicket", newTicket)
             const Ticket = await ticketsModel.create(newTicket)
             return Ticket
         } catch (error) {

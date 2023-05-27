@@ -22,7 +22,7 @@
                         <div class="tarjeta__button">
                             {{#if ../userData.cartid}}
                             <form method="post" action="/api/carts/{{../userData.cartid}}/product/{{id}}">
-                            <button>Añadir al carrito</button>
+                            <button id={{id}} class="prod_button" >Añadir al carrito</button>
                             </form>
                             {{else}}
                             <form method="post" action="/api/carts/error">

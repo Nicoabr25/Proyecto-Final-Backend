@@ -55,7 +55,8 @@ export const DeleteProductFromCartController = async (req, res) => {
     try {
         const { cid, pid } = req.params;
         await cartManager.deleteProductinCart(cid, pid);
-        res.send({ status: "success", payload: "Se ha eliminado el producto del carrito" })
+        console.log({ status: "success", payload: "Se ha eliminado el producto del carrito" })
+        res.redirect("/profile")
     } catch (error) {
         res.send({ status: "404 Error", payload: "Ha ocurrido un error" })
     }
@@ -86,33 +87,15 @@ export const notCartController = async (req, res) => {
     res.render("error", { style: "index", sectionName: "error" })
 }
 
-export const PurchaseCart = async (req, res) => {
+export const PurchaseCartController = async (req, res) => {
     try {
-
         const { cid } = req.params;
-        const cart = await cartManager.getCartbyId(cid)
-        if (!cart) {
-            res.send("carrito inexistente");
-        } else {
-            const ticketProducts = []
-            const rejectedProducts = []
-            if (!cart.products.length) {
-                return req.send("No hay productos en el carrito, agreguelos...")
-            }
-            for (let i = 0; i < cart.products.length; i++) {
-                const cartProduct = cart.products[i]
-                const productDB = await manager.getProductbyId(cartProduct.product._id)
-                if (cartProduct.quantity <= productDB.stock) {
-                    ticketProducts.push(cartProduct)
-                } else {
-                    rejectedProducts.push(cartProduct)
-                }
-            }
-            const NewTicket = await ticketManager.newTicket(ticketProducts, req.session.email.toString())
-            console.log("ticket", NewTicket)
-            res.send(NewTicket)
-        }
+        const ticketProducts = await cartManager.PurchaseCart(cid)
+        const NewTicket = await ticketManager.newTicket(ticketProducts, req.session.email.toString())
+        console.log("NewTicket", NewTicket)
+        res.send({ status: "Succes", payload: NewTicket })
     } catch (error) {
         res.send({ status: "Error", payload: "No se puede finalizar la compra" })
     }
 }
+

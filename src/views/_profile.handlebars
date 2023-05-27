@@ -19,9 +19,9 @@
                 <p>Cantidad en el carrito: {{this.quantity}}</p>
             </div>
             <div class = "each_product_remove">
-                {{!-- <form method="delete" action="/api/carts/{{../userData.cartid}}/product/{{this.product._id}}"> --}}
+                <form method="post" action="/api/carts/{{../userData.cartid}}/delete/{{this.product._id}}">
                 <button>❌</button>
-                {{!-- </form> --}}
+                </form>
             </div>
         </div>
         {{/each}}

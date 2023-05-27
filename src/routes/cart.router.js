@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart, notCartController, PurchaseCart } from "../controllers/cart.controller.js";
+import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart, notCartController, PurchaseCartController } from "../controllers/cart.controller.js";
 import { checkRole } from "../middlewares/roles.js";
 
 const cartRouter = Router();
@@ -23,6 +23,9 @@ cartRouter.post("/error", notCartController);
 //Ruta para borrar un producto (pid) del carrito (cid)//
 cartRouter.delete("/:cid/product/:pid", DeleteProductFromCartController);
 
+//Ruta POST para borrar un producto (pid) del carrito (cid)//
+cartRouter.post("/:cid/delete/:pid", DeleteProductFromCartController);
+
 //Ruta para borrar el carrito//
 cartRouter.delete("/:cid", DeleteCartController)
 
@@ -30,6 +33,6 @@ cartRouter.delete("/:cid", DeleteCartController)
 cartRouter.get("/:cid/product", GetProductsinCart)
 
 //Ruta para confirmar la compra//
-cartRouter.post("/:cid/purchase", PurchaseCart)
+cartRouter.post("/:cid/purchase", PurchaseCartController)
 
 export default cartRouter;

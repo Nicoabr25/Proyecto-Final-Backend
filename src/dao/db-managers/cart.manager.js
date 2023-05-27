@@ -1,8 +1,6 @@
 import cartModel from "../models/carts.models.js"
 import productModel from "../models/products.models.js";
 
-// const fs = require("fs");
-
 
 class CartManager {
 
@@ -22,7 +20,6 @@ class CartManager {
     async getCartbyId(id) {
         try {
             const cartFilter = await cartModel.findById(id).populate("products.product").lean();
-            console.log(cartFilter)
             if (!cartFilter) {
                 console.log("Carrito no encontrado");
             } else {
@@ -75,27 +72,61 @@ class CartManager {
         }
     }
 
-    async deleteProductinCart(cartId, prodId) {
+    async deleteProductinCart(cid, pid) {
         try {
-            const cart = await cartModel.findById(cartId);
-            const prod = cart.products.find(aux => aux.id == prodId)
-
+            const cart = await cartModel.findById(cid);
+            const prod = cart.products.find(aux => aux.product._id == pid)
             if (!prod) {
-                throw new Error("No existe dicho producto")
+                throw new Error("No existe dicho producto en el carrito")
             }
             if (prod.quantity > 1) {
-                prod.quantity -= 1;
+                prod.quantity = prod.quantity - 1;
                 cart.save()
-            } else {
-                let newCartProducts = cart.products.filter((p) => p.id !== prodId);
-                cart.products = newCartProducts;
+            } else if (prod.quantity <= 1) {
+                const productIndex = cart.products.findIndex(prod => prod.product._id.toString() == pid)
+                cart.products.splice(productIndex, 1)
                 cart.save()
             }
         } catch (Error) {
             throw new Error("no se pudo realizar la operación")
         }
     }
-};
+
+    // let newCartProducts = cart.products.filter((p) => p.product._id !== prodId);
+    // cart.products = newCartProducts;
+    // cart.products.deleteOne
+    // console.log("newCartProducts", newCartProducts)
+    // cart.save()
+
+    async PurchaseCart(cid) {
+        try {
+            const cart = await cartModel.findById(cid)
+            if (!cart) {
+                res.send("carrito inexistente");
+            } else {
+                const ticketProducts = []
+                const rejectedProducts = []
+                if (!cart.products.length) {
+                    return req.send("No hay productos en el carrito, agreguelos...")
+                }
+                for (let i = 0; i < cart.products.length; i++) {
+                    const cartProduct = cart.products[i]
+                    const productDB = await productModel.findById(cartProduct.product._id)
+                    if (cartProduct.quantity <= productDB.stock) {
+                        ticketProducts.push(cartProduct)
+                    } else {
+                        rejectedProducts.push(cartProduct)
+                    }
+                }
+                return (ticketProducts)
+            }
+        } catch (error) {
+            throw new Error
+        }
+    }
+
+
+}
 
 
 export default CartManager;
