@@ -5,7 +5,7 @@ const manager = new ProductManager();
 export const getProductsController = async (req, res) => {
     try {
         const { limit, page, sort, queryKey, queryParam } = req.query;
-        const products = await manager.getProducts(page);
+        const products = await manager.getProducts(limit, page);
         res.send({ status: "success", payload: products });
 
     } catch (e) {

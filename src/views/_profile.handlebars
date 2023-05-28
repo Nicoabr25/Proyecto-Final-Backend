@@ -1,8 +1,15 @@
 <div class = "profile_article">
-    <div class ="profile_header">
-        <p>Bienvenido a tu perfil {{userData.user}}.</p><br>
-        <p>Tu tipo de usuario es: {{userData.rol}} </p><br>
-        <p>Tu carrito es: {{userData.cartid}}</p>
+    <div class="profile_header">
+        <div class ="profile_title">
+            <p>Bienvenido a tu perfil {{userData.user}}.</p><br>
+            <p>Tu tipo de usuario es: {{userData.rol}} </p><br>
+            <p>Tu carrito es: {{userData.cartid}}</p>
+        </div>
+        <div class="logout_button">
+            <form method="post" action="/api/session/logout">
+            <button type="submit">Log Out!</button>
+            </form>
+        </div>
     </div>
     <h1>Vista del carrito</h1>
 {{#if cartProduct._id}}
@@ -25,6 +32,18 @@
             </div>
         </div>
         {{/each}}
+        <div class="purchase_buttons">
+            <div class = "confirm_purchase">
+                    <form method="post" action="/api/carts/{{userData.cartid}}/purchase">
+                    <button>Confirmar Compra</button>
+                    </form>
+            </div>
+            <div class = "clear_cart">
+                    <form method="post" action="/api/carts/{{userData.cartid}}/clearcart">
+                    <button>Vaciar carrito</button>
+                    </form>
+            </div>
+        </div>
     {{else}}
         No hay productos en el carrito
     {{/if}}

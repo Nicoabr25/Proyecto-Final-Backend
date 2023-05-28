@@ -1,5 +1,6 @@
 import cartModel from "../models/carts.models.js"
 import productModel from "../models/products.models.js";
+import { manager } from "../../controllers/products.controller.js";
 
 
 class CartManager {
@@ -92,12 +93,6 @@ class CartManager {
         }
     }
 
-    // let newCartProducts = cart.products.filter((p) => p.product._id !== prodId);
-    // cart.products = newCartProducts;
-    // cart.products.deleteOne
-    // console.log("newCartProducts", newCartProducts)
-    // cart.save()
-
     async PurchaseCart(cid) {
         try {
             const cart = await cartModel.findById(cid)
@@ -118,6 +113,10 @@ class CartManager {
                         rejectedProducts.push(cartProduct)
                     }
                 }
+
+                this.clearCart(cid)
+                this.reduceStock(ticketProducts)
+                console.log("ticketProducts", ticketProducts)
                 return (ticketProducts)
             }
         } catch (error) {
@@ -125,8 +124,44 @@ class CartManager {
         }
     }
 
+    async clearCart(cid) {
+        try {
+            const cart = await cartModel.findOneAndReplace({ _id: cid }, [])
+            cart.save()
+        } catch (error) {
+            throw new Error
+        }
+    };
 
+    async reduceStock(arr) {
+        const productsToReduce = arr
+        try {
+            productsToReduce.forEach((prod) => {
+                const prodToReduceId = prod.product._id.toString()
+                const stocktoReduce = prod.quantity;
+                console.log("prodToReduceId", prodToReduceId)
+                console.log("stocktoReduce", stocktoReduce)
+                manager.reduceStock(prodToReduceId, stocktoReduce)
+            })
+        } catch (error) {
+            throw new Error
+        }
+    }
 }
+
+// async reduceStock(arr) {
+//     const productsToReduce = arr
+//     try {
+//         productsToReduce.forEach((prod) => {
+//             const prodToReduceId = prod.product._id.toString()
+//             const stocktoReduce = prod.product.stock;
+//             productModel.findByIdAndUpdate({ id: prodToReduceId }, { stock: stock - Number(stocktoReduce) })
+//         })
+//     } catch (error) {
+//         throw new Error
+//     }
+// }
+// }
 
 
 export default CartManager;

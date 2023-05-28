@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart, notCartController, PurchaseCartController } from "../controllers/cart.controller.js";
+import { getCartController, createCartController, getCartByIdController, AddProducttoCartController, DeleteProductFromCartController, DeleteCartController, GetProductsinCart, notCartController, PurchaseCartController, ClearCartController } from "../controllers/cart.controller.js";
 import { checkRole } from "../middlewares/roles.js";
 
 const cartRouter = Router();
@@ -34,5 +34,8 @@ cartRouter.get("/:cid/product", GetProductsinCart)
 
 //Ruta para confirmar la compra//
 cartRouter.post("/:cid/purchase", PurchaseCartController)
+
+//Ruta para vaciar carrito//
+cartRouter.post("/:cid/clearcart", ClearCartController)
 
 export default cartRouter;

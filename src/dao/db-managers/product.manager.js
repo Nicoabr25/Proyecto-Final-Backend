@@ -12,7 +12,7 @@ class ProductManager {
     let limitOp = limit ? limit : 4;
     let pageOp = page ? page : 1;
     try {
-      const products = await productModel.paginate({}, { limit: 4, lean: true, page: page ?? 1 })
+      const products = await productModel.paginate({}, { limit: limitOp, lean: true, page: page ?? pageOp })
       return products;
     } catch (error) {
       return [];
@@ -76,6 +76,30 @@ class ProductManager {
     } catch (error) {
       console.log("No se pudo eliminar el producto")
       throw new Error;
+    }
+  }
+
+  async reduceStock(id, stock) {
+    try {
+      const productToUpdate = await productModel.findById(id)
+      if (productToUpdate.stock < stock) {
+        return ("El stock del producto es menor que la cantidad solicitada ")
+      } else {
+        const newStock = Number(productToUpdate.stock) - Number(stock)
+        const newinfo = {
+          title: productToUpdate.title,
+          description: productToUpdate.description,
+          price: productToUpdate.price,
+          thumbnail: productToUpdate.thumbnail,
+          code: productToUpdate.code,
+          stock: newStock,
+          category: productToUpdate.category,
+          status: productToUpdate.status
+        }
+        this.updateProduct(id, newinfo)
+      }
+    } catch (error) {
+      throw new Error
     }
   }
 }

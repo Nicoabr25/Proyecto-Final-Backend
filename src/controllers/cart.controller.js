@@ -44,7 +44,8 @@ export const AddProducttoCartController = async (req, res) => {
     const { cid, pid } = req.params;
     try {
         await cartManager.addProducttoCart(cid, pid);
-        res.send(`Producto con id: ${pid} agregado al carrito con id: ${cid}`);
+        console.log(`Producto con id: ${pid} agregado al carrito con id: ${cid}`);
+        res.redirect("/products")
     } catch (error) {
         res.status(404).send(`No se pudo agregar el producto con id: ${pid} al carrito con id: ${cid}`)
     }
@@ -92,10 +93,21 @@ export const PurchaseCartController = async (req, res) => {
         const { cid } = req.params;
         const ticketProducts = await cartManager.PurchaseCart(cid)
         const NewTicket = await ticketManager.newTicket(ticketProducts, req.session.email.toString())
-        console.log("NewTicket", NewTicket)
         res.send({ status: "Succes", payload: NewTicket })
     } catch (error) {
         res.send({ status: "Error", payload: "No se puede finalizar la compra" })
     }
+}
+
+export const ClearCartController = async (req, res) => {
+    try {
+        const { cid } = req.params;
+        cartManager.clearCart(cid)
+        console.log("Se ha vaciado el carrito")
+        res.redirect("/profile")
+    } catch (error) {
+        res.send({ status: "Error", payload: "No se pudo vaciar el carrito" })
+    }
+
 }
 
