@@ -2,7 +2,6 @@ import cartModel from "../models/carts.models.js"
 import productModel from "../models/products.models.js";
 import { manager } from "../../controllers/products.controller.js";
 
-
 class CartManager {
 
     constructor() {
@@ -119,6 +118,7 @@ class CartManager {
                         rejectedProducts.push({ product: cartProduct.product, quantity: leftQuantity })
                     }
                 }
+
                 this.clearCart(cid)
                 console.log("ticketProducts", ticketProducts)
                 console.log("rejectedProducts", rejectedProducts)

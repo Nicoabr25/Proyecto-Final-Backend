@@ -6,6 +6,7 @@ import TicketManager from "../dao/db-managers/ticket.manager.js";
 
 export const cartManager = new CartManager();
 export const ticketManager = new TicketManager();
+export let lastTicket = []
 
 export const getCartController = async (req, res) => {
     try {
@@ -93,6 +94,7 @@ export const PurchaseCartController = async (req, res) => {
         const { cid } = req.params;
         const purchaseCart = await cartManager.PurchaseCart(cid)
         const NewTicket = await ticketManager.newTicket(purchaseCart, req.session.email.toString())
+        lastTicket = NewTicket
         console.log({ status: "Succes", payload: NewTicket })
         res.redirect("/profile")
     } catch (error) {
