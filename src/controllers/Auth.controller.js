@@ -41,7 +41,9 @@ export const GithubFailureSignupController = passport.authenticate("githubSignup
 export const GithubCallbackController = (req, res) => {
     req.session.user = req.user.name
     req.session.email = req.user.email
-    req.session.rol = "user"
+    req.session.rol = req.user.rol
+    req.session.cart = req.user.cart
+    req.session.cartid = req.user.cart[0]._id.toString()
     console.log(req.session)
     res.redirect("/profile")
     // res.send(`Usuario autenticado. Podes ver tu pérfil <a href="/profile">Aquí</a>`);
