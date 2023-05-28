@@ -6,6 +6,7 @@ import ChatManager from "./dao/db-managers/chat.manager.js"
 import authRouter from "./routes/Auth.router.js";
 
 import express from "express";
+import expressHbs from "express-handlebars"
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
@@ -38,6 +39,35 @@ app.use(cookieParser());
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "/views")); //tengo que i ar la ruta absoluta (dirname me da la ruta hasta donde se ejecuta el codigo app.js)
+
+const hbs = expressHbs.create({}) //se agrega funcionalidad a handlebars
+hbs.handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+
+  switch (operator) {
+    case '==':
+      return (v1 == v2) ? options.fn(this) : options.inverse(this);
+    case '===':
+      return (v1 === v2) ? options.fn(this) : options.inverse(this);
+    case '!=':
+      return (v1 != v2) ? options.fn(this) : options.inverse(this);
+    case '!==':
+      return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+    case '<':
+      return (v1 < v2) ? options.fn(this) : options.inverse(this);
+    case '<=':
+      return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+    case '>':
+      return (v1 > v2) ? options.fn(this) : options.inverse(this);
+    case '>=':
+      return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+    case '&&':
+      return (v1 && v2) ? options.fn(this) : options.inverse(this);
+    case '||':
+      return (v1 || v2) ? options.fn(this) : options.inverse(this);
+    default:
+      return options.inverse(this);
+  }
+});
 
 //Sessions//Configura la sessions y las almacena en MongoDB
 

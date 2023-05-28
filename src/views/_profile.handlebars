@@ -35,12 +35,12 @@
         <div class="purchase_buttons">
             <div class = "confirm_purchase">
                     <form method="post" action="/api/carts/{{userData.cartid}}/purchase">
-                    <button>Confirmar Compra</button>
+                    <button id="confirm_purchase">Confirmar Compra</button>
                     </form>
             </div>
             <div class = "clear_cart">
                     <form method="post" action="/api/carts/{{userData.cartid}}/clearcart">
-                    <button>Vaciar carrito</button>
+                    <button id="empty_cart">Vaciar carrito</button>
                     </form>
             </div>
         </div>
@@ -52,3 +52,6 @@
 {{/if}}
 </div>
 
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script src="/js/ticket.front.js"></script>

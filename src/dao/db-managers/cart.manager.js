@@ -94,13 +94,13 @@ class CartManager {
     }
 
     async PurchaseCart(cid) {
+        const ticketProducts = []
+        const rejectedProducts = []
         try {
             const cart = await cartModel.findById(cid)
             if (!cart) {
                 res.send("carrito inexistente");
             } else {
-                const ticketProducts = []
-                const rejectedProducts = []
                 if (!cart.products.length) {
                     return req.send("No hay productos en el carrito, agreguelos...")
                 }
@@ -109,14 +109,19 @@ class CartManager {
                     const productDB = await productModel.findById(cartProduct.product._id)
                     if (cartProduct.quantity <= productDB.stock) {
                         ticketProducts.push(cartProduct)
+                        this.consumeStock(ticketProducts)
                     } else {
-                        rejectedProducts.push(cartProduct)
+                        const quantityToPurchase = productDB.stock
+                        const leftQuantity = Number(cartProduct.quantity) - Number(productDB.stock)
+                        cartProduct.quantity = quantityToPurchase
+                        ticketProducts.push(cartProduct)
+                        this.consumeStock(ticketProducts)
+                        rejectedProducts.push({ product: cartProduct.product, quantity: leftQuantity })
                     }
                 }
-
                 this.clearCart(cid)
-                this.reduceStock(ticketProducts)
                 console.log("ticketProducts", ticketProducts)
+                console.log("rejectedProducts", rejectedProducts)
                 return (ticketProducts)
             }
         } catch (error) {
@@ -133,7 +138,7 @@ class CartManager {
         }
     };
 
-    async reduceStock(arr) {
+    async consumeStock(arr) {
         const productsToReduce = arr
         try {
             productsToReduce.forEach((prod) => {

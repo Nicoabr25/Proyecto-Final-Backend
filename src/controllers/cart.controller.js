@@ -91,11 +91,13 @@ export const notCartController = async (req, res) => {
 export const PurchaseCartController = async (req, res) => {
     try {
         const { cid } = req.params;
-        const ticketProducts = await cartManager.PurchaseCart(cid)
-        const NewTicket = await ticketManager.newTicket(ticketProducts, req.session.email.toString())
-        res.send({ status: "Succes", payload: NewTicket })
+        const purchaseCart = await cartManager.PurchaseCart(cid)
+        const NewTicket = await ticketManager.newTicket(purchaseCart, req.session.email.toString())
+        console.log({ status: "Succes", payload: NewTicket })
+        res.redirect("/profile")
     } catch (error) {
-        res.send({ status: "Error", payload: "No se puede finalizar la compra" })
+        console.log({ status: "Error", payload: "No se puede finalizar la compra" })
+        res.redirect("/error")
     }
 }
 
