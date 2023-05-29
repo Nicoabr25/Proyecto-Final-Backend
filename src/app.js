@@ -74,6 +74,7 @@ hbs.handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 app.use(session({
   store: MongoStore.create({
     mongoUrl: options.mongoDB.URL,
+    ttl: 3600,
   }),
   secret: options.server.secretSession,
   resave: true,
