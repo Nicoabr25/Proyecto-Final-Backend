@@ -144,8 +144,6 @@ class CartManager {
             productsToReduce.forEach((prod) => {
                 const prodToReduceId = prod.product._id.toString()
                 const stocktoReduce = prod.quantity;
-                console.log("prodToReduceId", prodToReduceId)
-                console.log("stocktoReduce", stocktoReduce)
                 manager.reduceStock(prodToReduceId, stocktoReduce)
             })
         } catch (error) {

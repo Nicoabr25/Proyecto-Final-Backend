@@ -24,7 +24,7 @@ function confirm_purchase_message() {
         showCancelButton: false,
         focusConfirm: false,
         confirmButtonText:
-            '<a href="/profile">Entendido!☕</a>',
+            'Entendido!☕',
         confirmButtonAriaLabel: 'Ok!',
 
     });

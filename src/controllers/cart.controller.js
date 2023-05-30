@@ -96,7 +96,7 @@ export const PurchaseCartController = async (req, res) => {
         const NewTicket = await ticketManager.newTicket(purchaseCart, req.session.email.toString())
         lastTicket = NewTicket
         console.log({ status: "Succes", payload: NewTicket })
-        // res.redirect("/profile")
+        res.redirect("/profile")
     } catch (error) {
         console.log({ status: "Error", payload: "No se puede finalizar la compra" })
         res.redirect("/error")
