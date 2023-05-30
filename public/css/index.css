@@ -245,7 +245,7 @@ p {
 /*-------Body------*/
 #main {
     grid-area: main;
-    background-color: antiquewhite;
+    background-color: #212529c0;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center;
@@ -859,7 +859,8 @@ h2 {
 }
 
 #footer .footer__imagen {
-    max-height: 15vh;
+    height: 10vh;
+    /* max-height: 10vh; */
 }
 
 #footer ul {
@@ -895,7 +896,8 @@ h2 {
 /*-------------------------------------------------------------------componentes--------------------------------------------------------------------------*/
 /*-------Carrousel------*/
 #carrousel {
-    max-height: 700px;
+    width: 100vw;
+    height: 85vh;
 }
 
 .carousel-inner p {
@@ -905,6 +907,8 @@ h2 {
 }
 
 .carousel-item img {
+    height: 85vh;
+    width: 100vw;
     object-fit: cover;
 }
 
