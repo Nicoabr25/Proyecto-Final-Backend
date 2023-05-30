@@ -14,7 +14,7 @@ export const SignupRedirectController = (req, res) => {
     req.session.age = req.user.age
     req.session.cart = req.user.cart
     req.session.cartid = req.user.cart[0]._id.toString()
-    // console.log(req.session);
+    console.log(req.session);
     res.redirect("/profile");
 };
 
