@@ -330,7 +330,7 @@ p {
 }
 
 #main section {
-    background-color: rgba(238, 238, 238, 0.5);
+    background-color: #0D191C;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -415,7 +415,8 @@ p {
 }
 
 #footer .footer__imagen {
-    max-height: 15vh;
+    height: 10vh;
+    /* max-height: 10vh; */
 }
 
 #footer ul {
