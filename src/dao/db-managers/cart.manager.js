@@ -45,8 +45,6 @@ class CartManager {
         }
     }
 
-
-
     async addProducttoCart(cartId, prodId) {
         try {
             const cart = await cartModel.findById(cartId).populate("products.product");
@@ -152,19 +150,6 @@ class CartManager {
     }
 }
 
-// async reduceStock(arr) {
-//     const productsToReduce = arr
-//     try {
-//         productsToReduce.forEach((prod) => {
-//             const prodToReduceId = prod.product._id.toString()
-//             const stocktoReduce = prod.product.stock;
-//             productModel.findByIdAndUpdate({ id: prodToReduceId }, { stock: stock - Number(stocktoReduce) })
-//         })
-//     } catch (error) {
-//         throw new Error
-//     }
-// }
-// }
 
 
 export default CartManager;

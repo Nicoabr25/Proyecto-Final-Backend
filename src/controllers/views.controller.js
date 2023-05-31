@@ -60,3 +60,7 @@ export const ForgotViewController = async (req, res) => {
 export const SignupViewContoller = async (req, res) => {
     res.render("_signup", { style: "index", sectionName: "Signup" })
 }
+
+export const errorController = async (req, res) => {
+    res.render("error", { style: "index", sectionName: "error" })
+}

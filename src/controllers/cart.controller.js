@@ -1,7 +1,7 @@
 import { CartManager } from "../config/persistance.js";
 import { manager } from "../controllers/products.controller.js"
 import TicketManager from "../dao/db-managers/ticket.manager.js";
-
+import { CartNotFoundErrorFunction } from "../services/customErrorFunctions.js";
 
 
 export const cartManager = new CartManager();
@@ -85,8 +85,12 @@ export const GetProductsinCart = async (req, res) => {
 }
 
 export const notCartController = async (req, res) => {
-    const { pid } = req.params
-    res.render("error", { style: "index", sectionName: "error" })
+    try {
+        const { pid } = req.params
+        CartNotFoundErrorFunction()
+    } catch (error) {
+        res.render("error", { style: "index", sectionName: "error" })
+    }
 }
 
 export const PurchaseCartController = async (req, res) => {

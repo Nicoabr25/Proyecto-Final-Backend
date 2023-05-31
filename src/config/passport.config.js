@@ -5,6 +5,7 @@ import { createHash, isValid } from "../utils.js";
 import GithubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 import { CartManager } from "./persistance.js";
+import { GenereteUserErrorFunction } from "../services/customErrorFunctions.js";
 
 const cart = new CartManager;
 const initializePassport = () => { //passport trabaja con username y password, pero yo habia usado email, entonces lo que hago en la estrategia es asignar el dato de email ausername
@@ -15,7 +16,10 @@ const initializePassport = () => { //passport trabaja con username y password, p
         },
         async (req, username, password, done) => {
             try {
-                const { name, last_name, age } = req.body; //aca paso todas las variables que no sea username(email) y password que vengan de mi formulario
+                const { name, last_name, age } = req.body;//aca paso todas las variables que no sea username(email) y password que vengan de mi formulario
+                if (!name || !last_name || !age) {
+                    GenereteUserErrorFunction(req.body); //funcion que lleva al manejo del error
+                }
                 const user = await userModel.findOne({ email: username }) //porque passport lo llama username es lo que declaramos en la linea 9
                 if (user) { //si ya existe en la BD arrojo false al done
                     return done(null, false) //done(Error,payload)

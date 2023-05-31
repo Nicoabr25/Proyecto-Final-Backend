@@ -1,6 +1,8 @@
 import userModel from "../dao/models/user.models.js";
 import { createHash, isValid } from "../utils.js";
 import passport from "passport";
+import { LoginErrorFunction, LoginAuthError } from "../services/customErrorFunctions.js";
+
 
 export const passportStrategySignupController = passport.authenticate("signupStrategy", {
     failureRedirect: "/api/session/failure-signup"
@@ -51,10 +53,13 @@ export const GithubCallbackController = (req, res) => {
 export const LoginController = async (req, res) => {
     try {
         const { email, password } = req.body;
+        if (!email || !password) {
+            LoginErrorFunction(req.body) //funcion que lleva al manejo del error
+        }
         const user = await userModel.findOne({ email: email })
         if (!user) {
             res.send(`Usuario inexistente, haz click  <a href="/signup">Aquí</a> para registrarte`)
-        } else if (email === user.email & isValid(user, password) == true) {
+        } else if (email === user.email && isValid(user, password) == true) {
             req.session.user = user.name
             req.session.userid = user._id.toString()
             req.session.email = user.email
@@ -65,10 +70,11 @@ export const LoginController = async (req, res) => {
             console.log(req.session)
             res.redirect("/products")
         } else {
+            LoginAuthError() //funcion que lleva al manejo del error
             res.send("Usuario y contraseña incorrecto")
         }
     } catch (error) {
-        res.status(401).send("Error de login")
+        res.redirect("/error")
     }
 };
 

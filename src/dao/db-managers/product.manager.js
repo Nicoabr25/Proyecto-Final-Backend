@@ -19,27 +19,6 @@ class ProductManager {
     }
   }
 
-  // async getProducts(limit, page, sort, queryKey, queryParam) {
-  //   let limitOp = limit ? limit : 10;
-  //   let pageOp = page ? page : 1;
-  //   let sortOp = sort ? { price: sort } : null;
-  //   let queryKeyOp = queryKey
-  //   let queryParamsOp = queryParam;
-  //   let Parametros = { limit: limitOp, lean: true, page: pageOp, sort: sortOp }
-  //   let querySearch;
-  //   if (queryKeyOp && queryParamsOp) {
-  //     querySearch = { [queryKeyOp]: [queryParamsOp] }
-  //   } else {
-  //     { }
-  //   }
-  //   try {
-  //     const products = await productModel.paginate(querySearch, Parametros)
-  //     return products;
-  //   } catch (error) {
-  //     return [];
-  //   }
-  // }
-
 
   async getProductbyId(id) {
     const productsFilter = await productModel.findById(id);

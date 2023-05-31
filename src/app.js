@@ -4,6 +4,7 @@ import viewsRouter from "./routes/views.router.js"
 import { __dirname } from "./utils.js"
 import ChatManager from "./dao/db-managers/chat.manager.js"
 import authRouter from "./routes/Auth.router.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 import express from "express";
 import expressHbs from "express-handlebars"
@@ -127,9 +128,4 @@ app.use("/profile", viewsRouter);
 app.use("/signup", viewsRouter);
 app.use("/api/session", authRouter);
 app.use("/chat", viewsRouter)
-
-
-//Mongoose//
-// mongoose.connect(options.mongoDB.URL).then((conn) => {
-//   console.log("Connected to DB!!!")
-// })
+app.use(errorHandler)

@@ -7,8 +7,8 @@ export const getProductsController = async (req, res) => {
         const { limit, page, sort, queryKey, queryParam } = req.query;
         const products = await manager.getProducts(limit, page);
         res.send({ status: "success", payload: products });
-
     } catch (e) {
+        ProductErrorFunction() //funcion que lleva al manejo del error
         res.status(404).send("No se pueden obtener los productos")
     }
 };
