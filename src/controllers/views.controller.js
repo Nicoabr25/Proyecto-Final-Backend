@@ -3,8 +3,6 @@ import ChatManager from "../dao/db-managers/chat.manager.js";
 import productModel from "../dao/models/products.models.js"
 import { cartManager } from "../controllers/cart.controller.js";
 
-
-
 const chatManager = new ChatManager();
 
 export const GetRealTimeProductsController = async (req, res) => {
