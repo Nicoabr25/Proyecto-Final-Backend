@@ -246,6 +246,16 @@ p {
 /*----hOME----*/
 #main {
     grid-area: main;
+    background-image: url(../img/background.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 
 /* .banner {
@@ -335,11 +345,7 @@ p {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-image: url(../img/background.png);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+
     /* background: linear-gradient(hsl(0 0% 0% /0), hsl(255 0% 50%/0.2) 10%, hsl(0 0% 0%/1)); */
 }
 
@@ -474,10 +480,29 @@ p {
 }
 
 /*-------------------------------------------------------------------componentes--------------------------------------------------------------------------*/
+/*-------Banner------*/
+#banner {
+    width: 90svw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner img {
+    border-radius: 1rem;
+    width: 75svw;
+    margin-top: 20px;
+    box-shadow: 0 0 60px 20px #6a656b6a;
+}
+
+
 /*-------Carrousel------*/
 #carrousel {
-    width: auto;
+    width: 90svw;
     height: 80svh;
+
 }
 
 #carouselExampleCaptions {
@@ -534,4 +559,69 @@ p {
         text-align: center;
         padding: 2%;
     }
+}
+
+
+/*-------process cards------*/
+#process {
+    width: 90svw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.process_container {
+    width: 75svw;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.process_container img {
+    border-radius: 1rem;
+    opacity: 50%;
+}
+
+.process_card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(-90deg, #f5f5f564, #f5f5f500);
+    width: fit-content;
+}
+
+.process_img {
+    padding: 3px;
+}
+
+.process_img video {
+    width: auto;
+    max-height: 320px;
+    border-radius: 2rem;
+    padding: 20px;
+}
+
+.process_text {
+    margin: 0px 25px 0px 25px;
+    padding: 3px;
+    width: auto;
+    padding: 20px;
+    max-height: 350px;
+}
+
+.process_text h2 {
+    margin-bottom: 1rem;
+    font-size: xx-large;
+    text-align: center;
+    color: #e4e6ebac;
+}
+
+.process_text p {
+    text-align: justify;
+    padding: 1rem 3rem;
+    font-weight: 500;
+    color: #e4e6ebac;
 }
