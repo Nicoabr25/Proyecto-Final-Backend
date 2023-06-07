@@ -416,7 +416,7 @@ p {
 
 #prodList {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
@@ -425,28 +425,34 @@ p {
 }
 
 .tarjeta {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 4fr 6fr;
+    grid-template-areas:
+        "img info";
+    /* display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    height: 450px;
-    width: 300px;
+    justify-content: center; */
+    height: 400px;
+    width: 60svw;
     background-color: rgba(238, 238, 238, 0.75);
     border-radius: 1rem;
     padding: 1% 1%;
     margin: 10px 10px;
+    box-shadow: 10px 10px 30px 0px #8c8a8a;
 }
 
 .tarjeta__imagen {
+    grid-area: img;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 210px;
-    border-radius: 0.75rem;
 }
 
 .tarjeta__imagen img {
-    width: 100%;
+    width: auto;
     transition: all 1s;
     height: 90%;
     padding-top: 0.75rem;
@@ -458,12 +464,21 @@ p {
 }
 
 .tarjeta__info {
+    grid-area: info;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0 10px;
+}
+
+.tarjeta__text {
     margin-bottom: 0.2rem;
     text-align: justify;
     padding: 2% 5%;
 }
 
-.tarjeta__info h3,
+.tarjeta__text h3,
 h4 {
     display: flex;
     align-items: center;
@@ -472,15 +487,16 @@ h4 {
     font-weight: 500;
     height: 25px;
     padding: 0.5rem;
+    margin: 1rem;
 }
 
-.tarjeta__info p {
+.tarjeta__text p {
     display: flex;
     align-items: center;
     justify-content: left;
     height: fit-content;
-    font-size: 1rem;
-    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    margin: 1rem 0rem;
 }
 
 .tarjeta__button {
@@ -543,6 +559,12 @@ h4 {
     }
 
     .tarjeta {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 100%;
+        grid-template-areas:
+            "img"
+            "info";
         height: 300px;
         width: 200px;
     }
@@ -551,11 +573,12 @@ h4 {
         padding: 0.5rem;
         height: 120px;
         margin-bottom: 3px;
+        padding-top: 0;
     }
 
     .tarjeta__imagen img {
-        width: 100%;
-        height: 80%;
+        width: 120px;
+        height: 120px;
         transition: all 1s;
         padding-top: 0.5rem;
     }
@@ -564,12 +587,12 @@ h4 {
         transform: scale(1.1, 1.1);
     }
 
-    .tarjeta__info {
+    .tarjeta__text {
         margin-bottom: 2%;
         padding: 0% 2%;
     }
 
-    .tarjeta__info h3,
+    .tarjeta__text h3,
     h4 {
         font-size: 1rem;
         font-weight: 500;
@@ -578,7 +601,7 @@ h4 {
         margin-top: 0.2rem;
     }
 
-    .tarjeta__info p {
+    .tarjeta__text p {
         height: 25px;
         font-size: 0.8rem;
         margin-top: 0.2rem;
@@ -589,6 +612,7 @@ h4 {
     }
 
     .tarjeta__button button {
+        margin: 0rem 0rem;
         padding: 0.5rem 1rem;
     }
 }
@@ -604,20 +628,27 @@ h4 {
     }
 
     .tarjeta {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 100%;
+        grid-template-areas:
+            "img"
+            "info";
         height: 380px;
         width: 280px;
     }
 
     .tarjeta__imagen {
+        padding-top: 0;
         padding: 0.5rem;
         height: 180px;
         margin-bottom: 0px;
     }
 
     .tarjeta__imagen img {
-        width: 100%;
-        height: 90%;
-        margin-top: 0.2rem;
+        width: 200px;
+        height: 200px;
+        margin-top: 0rem;
         padding-top: 1rem;
         transition: all 1s;
     }
@@ -627,11 +658,15 @@ h4 {
     }
 
     .tarjeta__info {
-        margin-bottom: 2%;
+        margin: 0 0 0 10px;
+    }
+
+    .tarjeta__text {
+        margin-bottom: 1%;
         padding: 0% 2%;
     }
 
-    .tarjeta__info h3,
+    .tarjeta__text h3,
     h4 {
         font-size: 1rem;
         font-weight: 500;
@@ -639,17 +674,18 @@ h4 {
         margin-bottom: 10px;
     }
 
-    .tarjeta__info p {
+    .tarjeta__text p {
         height: 25px;
         font-size: 0.8rem;
-        margin: 0.5rem 0rem;
+        margin: 0.25rem 0rem;
     }
 
     .tarjeta__button {
-        margin: 0.2rem 0rem;
+        margin: 0rem 0rem;
     }
 
     .tarjeta__button button {
+        margin: 0rem 0rem;
         padding: 0.5rem 1rem;
     }
 }

@@ -19,22 +19,24 @@
                             <img src={{thumbnail}} alt={{description}}>
                         </div>
                         <div class="tarjeta__info">
-                            <h3><strong>{{title}}</strong></h3>
-                            <p>ID: {{id}}</p>
-                            <p>Category: {{category}}</p>
-                            <p>{{description}}</p>
-                            <h4>Precio: AR$ {{price}}</h4>
-                        </div>
-                        <div class="tarjeta__button">
-                            {{#if ../userData.cartid}}
-                            <form method="post" action="/api/carts/{{../userData.cartid}}/product/{{id}}">
-                            <button id={{id}} class="prod_button" >Añadir al carrito</button>
-                            </form>
-                            {{else}}
-                            <form method="post" action="/api/carts/error">
-                            <button>Añadir al carrito</button>
-                            </form>
-                            {{/if}}
+                            <div class="tarjeta__text">
+                                <h3><strong>{{title}}</strong></h3>
+                                <p>ID: {{id}}</p>
+                                <p>Category: {{category}}</p>
+                                <p>{{description}}</p>
+                                <h4>Precio: AR$ {{price}}</h4>
+                            </div>
+                            <div class="tarjeta__button">
+                                {{#if ../userData.cartid}}
+                                <form method="post" action="/api/carts/{{../userData.cartid}}/product/{{id}}">
+                                <button id={{id}} class="prod_button" >Añadir al carrito</button>
+                                </form>
+                                {{else}}
+                                <form method="post" action="/api/carts/error">
+                                <button>Añadir al carrito</button>
+                                </form>
+                                {{/if}}
+                            </div>
                         </div>
                 </div>
                 {{/ifCond}}
