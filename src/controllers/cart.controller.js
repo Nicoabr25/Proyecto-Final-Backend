@@ -2,10 +2,12 @@ import { CartManager } from "../config/persistance.js";
 import { manager } from "../controllers/products.controller.js"
 import TicketManager from "../dao/db-managers/ticket.manager.js";
 import { CartNotFoundErrorFunction } from "../services/customErrorFunctions.js";
+import { addLoger2 } from "../logger/logger.js";
 
 
 export const cartManager = new CartManager();
 export const ticketManager = new TicketManager();
+const logger = addLoger2()
 export let lastTicket = []
 
 export const getCartController = async (req, res) => {
@@ -13,6 +15,7 @@ export const getCartController = async (req, res) => {
         let cart = await cartManager.getCarts();
         res.status(201).send(cart)
     } catch (e) {
+        logger.warning(`No se pueden obtener los carritos`)
         res.status(404).send("No se pueden obtener los carritos")
     }
 };
@@ -23,6 +26,7 @@ export const createCartController = async (req, res) => {
         const cart = await cartManager.getCarts();
         res.status(201).send(cart);
     } catch (e) {
+        logger.warning(`Hubo un error al crear el carrito`)
         res.status(404).send("Hubo un error al crear el carrito")
     }
 }
@@ -37,6 +41,7 @@ export const getCartByIdController = async (req, res) => {
             res.send(cart)
         }
     } catch (e) {
+        logger.fatal(`No se pueden obtener el carrito`)
         res.status(404).send("No se pueden obtener el carrito")
     }
 }
@@ -48,6 +53,7 @@ export const AddProducttoCartController = async (req, res) => {
         console.log(`Producto con id: ${pid} agregado al carrito con id: ${cid}`);
         res.redirect("/products")
     } catch (error) {
+        logger.error(`No se pudo agregar el producto`)
         res.status(404).send(`No se pudo agregar el producto con id: ${pid} al carrito con id: ${cid}`)
     }
 
@@ -87,6 +93,7 @@ export const GetProductsinCart = async (req, res) => {
 export const notCartController = async (req, res) => {
     try {
         const { pid } = req.params
+        logger.error(`No se pueden obtener el carrito`);
         CartNotFoundErrorFunction()
     } catch (error) {
         res.render("error", { style: "index", sectionName: "error" })

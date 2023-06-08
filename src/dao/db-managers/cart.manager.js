@@ -1,7 +1,9 @@
 import cartModel from "../models/carts.models.js"
 import productModel from "../models/products.models.js";
 import { manager } from "../../controllers/products.controller.js";
+import { addLoger2 } from "../../logger/logger.js";
 
+const logger = addLoger2();
 class CartManager {
 
     constructor() {
@@ -21,7 +23,7 @@ class CartManager {
         try {
             const cartFilter = await cartModel.findById(id).populate("products.product").lean();
             if (!cartFilter) {
-                console.log("Carrito no encontrado");
+                logger.fatal(`No se pueden obtener el carrito`)
             } else {
                 return cartFilter;
             }

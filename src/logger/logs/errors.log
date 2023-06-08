@@ -1,4 +1,3 @@
-{"level":"fatal","message":"/kakakaka - method: GET"}
-{"level":"error","message":"/kakakaka - method: GET"}
-{"level":"fatal","message":"nivel fatal"}
-{"level":"error","message":"nivel error"}
+{"level":"fatal","message":"No se pueden obtener el carrito"}
+{"level":"error","message":"Falta Uusario y/o contraseña"}
+{"level":"error","message":"Usario y contraseña incorrecto"}

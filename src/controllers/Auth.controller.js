@@ -2,7 +2,9 @@ import userModel from "../dao/models/user.models.js";
 import { createHash, isValid } from "../utils.js";
 import passport from "passport";
 import { LoginErrorFunction, LoginAuthError } from "../services/customErrorFunctions.js";
+import { addLoger2 } from "../logger/logger.js";
 
+const logger = addLoger2()
 
 export const passportStrategySignupController = passport.authenticate("signupStrategy", {
     failureRedirect: "/api/session/failure-signup"
@@ -54,6 +56,7 @@ export const LoginController = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
+            logger.error(`Falta Uusario y/o contraseña`);
             LoginErrorFunction(req.body) //funcion que lleva al manejo del error
         }
         const user = await userModel.findOne({ email: email })
@@ -70,6 +73,7 @@ export const LoginController = async (req, res) => {
             console.log(req.session)
             res.redirect("/products")
         } else {
+            logger.error(`Usario y contraseña incorrecto`)
             LoginAuthError() //funcion que lleva al manejo del error
             res.send("Usuario y contraseña incorrecto")
         }
