@@ -50,7 +50,8 @@ export const AddProducttoCartController = async (req, res) => {
     const { cid, pid } = req.params;
     try {
         await cartManager.addProducttoCart(cid, pid);
-        console.log(`Producto con id: ${pid} agregado al carrito con id: ${cid}`);
+        logger.info(`Producto con id: ${pid} agregado al carrito con id: ${cid}`)
+        // console.log(`Producto con id: ${pid} agregado al carrito con id: ${cid}`);
         res.redirect("/products")
     } catch (error) {
         logger.error(`No se pudo agregar el producto`)
@@ -63,7 +64,8 @@ export const DeleteProductFromCartController = async (req, res) => {
     try {
         const { cid, pid } = req.params;
         await cartManager.deleteProductinCart(cid, pid);
-        console.log({ status: "success", payload: "Se ha eliminado el producto del carrito" })
+        logger.info(`Se ha eliminado el producto del carrito`)
+        // console.log({ status: "success", payload: "Se ha eliminado el producto del carrito" })
         res.redirect("/profile")
     } catch (error) {
         res.send({ status: "404 Error", payload: "Ha ocurrido un error" })
@@ -106,10 +108,12 @@ export const PurchaseCartController = async (req, res) => {
         const purchaseCart = await cartManager.PurchaseCart(cid)
         const NewTicket = await ticketManager.newTicket(purchaseCart, req.session.email.toString())
         lastTicket = NewTicket
-        console.log({ status: "Succes", payload: NewTicket })
+        logger.info(`Exito! se ha generado el ticket ${NewTicket}`)
+        // console.log({ status: "Succes", payload: NewTicket })
         res.redirect("/profile")
     } catch (error) {
-        console.log({ status: "Error", payload: "No se puede finalizar la compra" })
+        logger.error(`Error! No se puede finalizar la compra`)
+        // console.log({ status: "Error", payload: "No se puede finalizar la compra" })
         res.redirect("/error")
     }
 }
@@ -118,7 +122,8 @@ export const ClearCartController = async (req, res) => {
     try {
         const { cid } = req.params;
         cartManager.clearCart(cid)
-        console.log("Se ha vaciado el carrito")
+        logger.info("Se ha vaciado el carrito")
+        // console.log("Se ha vaciado el carrito")
         res.redirect("/profile")
     } catch (error) {
         res.send({ status: "Error", payload: "No se pudo vaciar el carrito" })

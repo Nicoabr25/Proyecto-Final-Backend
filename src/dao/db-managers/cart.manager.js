@@ -120,8 +120,8 @@ class CartManager {
                 }
 
                 this.clearCart(cid)
-                console.log("ticketProducts", ticketProducts)
-                console.log("rejectedProducts", rejectedProducts)
+                // console.log("ticketProducts", ticketProducts)
+                // console.log("rejectedProducts", rejectedProducts)
                 return (ticketProducts)
             }
         } catch (error) {
