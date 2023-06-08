@@ -2,8 +2,11 @@ import { manager } from "../controllers/products.controller.js"
 import ChatManager from "../dao/db-managers/chat.manager.js";
 import productModel from "../dao/models/products.models.js"
 import { cartManager } from "../controllers/cart.controller.js";
+import { addLoger2 } from "../logger/logger.js";
+
 
 const chatManager = new ChatManager();
+const logger = addLoger2()
 
 export const GetRealTimeProductsController = async (req, res) => {
     const { limit, page, sort, queryKey, queryParam } = req.query
@@ -61,4 +64,14 @@ export const SignupViewContoller = async (req, res) => {
 
 export const errorController = async (req, res) => {
     res.render("error", { style: "index", sectionName: "error" })
+}
+
+export const loggerTestController = async (req, res) => {
+    logger.fatal(`nivel fatal`)
+    logger.error(`nivel error`)
+    logger.warning(`nivel warning`)
+    logger.info(`nivel info`)
+    logger.http(`nivel http}`)
+    logger.debug(`nivel debug`)
+    res.send("prueba exitosa")
 }

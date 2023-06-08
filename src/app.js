@@ -1,3 +1,4 @@
+//----- Propios -----//
 import productRouter from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 import viewsRouter from "./routes/views.router.js"
@@ -5,7 +6,11 @@ import { __dirname } from "./utils.js"
 import ChatManager from "./dao/db-managers/chat.manager.js"
 import authRouter from "./routes/Auth.router.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import { initializePassport } from "./config/passport.config.js";
+import { options } from "./config/options.js";
+import { addLogger } from "./logger/logger.js";
 
+//----- Paquetes -----//
 import express from "express";
 import expressHbs from "express-handlebars"
 import { engine } from "express-handlebars";
@@ -16,8 +21,6 @@ import path from "path";// permite unir __dirname y las demás rutas cambiando e
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
-import { initializePassport } from "./config/passport.config.js";
-import { options } from "./config/options.js";
 import jwt from "jsonwebtoken";
 
 const app = express();
@@ -128,4 +131,5 @@ app.use("/profile", viewsRouter);
 app.use("/signup", viewsRouter);
 app.use("/api/session", authRouter);
 app.use("/chat", viewsRouter)
-app.use(errorHandler)
+app.use(errorHandler)//cada vez que se haga una peticion va a pasar por aca
+app.use(addLogger)

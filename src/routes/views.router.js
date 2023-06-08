@@ -1,7 +1,8 @@
 import { Router, json } from "express";
-import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller, errorController } from "../controllers/views.controller.js";
+import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller, errorController, loggerTestController } from "../controllers/views.controller.js";
 import { checkRole } from "../middlewares/roles.js";
 import compression from "express-compression";
+
 
 const viewsRouter = Router();
 viewsRouter.use(json());
@@ -32,5 +33,7 @@ viewsRouter.get("/forgot", ForgotViewController);
 viewsRouter.get("/signup", SignupViewContoller);
 
 viewsRouter.get("/error", errorController)
+
+viewsRouter.get("/loggerTest", loggerTestController)
 
 export default viewsRouter;
