@@ -304,7 +304,7 @@ p {
     align-items: center;
     justify-content: center; */
     height: 400px;
-    width: 65svw;
+    width: 60svw;
     background-color: rgba(238, 238, 238, 0.75);
     border-radius: 1rem;
     padding: 1% 1%;
@@ -321,10 +321,11 @@ p {
 }
 
 .tarjeta__imagen img {
-    width: 100%;
+    width: 80%;
     transition: all 1s;
     height: auto;
     padding-top: 0.75rem;
+    aspect-ratio: 1/1;
 
 }
 
