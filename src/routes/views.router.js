@@ -17,7 +17,7 @@ viewsRouter.get("/chat", checkRole(["user"]), ChatController)
 viewsRouter.get("/products", compression({ brotli: { enable: true, zlib: {} } }), ProductViewController);
 
 //Ruta para la view de homes//
-viewsRouter.get("/", HomeController);
+viewsRouter.get("/", compression({ brotli: { enable: true, zlib: {} } }), HomeController);
 
 //Ruta para la view de Login//
 viewsRouter.get("/login", LoginViewController);

@@ -65,12 +65,12 @@ export const addLogger = (req, res, next) => {
     } else {
         req.logger = prodLogger;
     }
-    req.logger.fatal(`nivel fatal`) //defino el tipo de error que lanza, solo se muestran los tipos de error definidos en el transportador o superior [0: error, 1 : warn, 2: info, 3: http, 4 : verbose, 5: debug, 6: silly], en este caso http va ammostrar errores del tipo [error, warn, info y http]  req.logger.debug(`${req.url} - method: ${req.method}`)
-    req.logger.error(`nivel error`)
-    req.logger.warning(`nivel warning`)
-    req.logger.info(`nivel info`)
-    req.logger.http(`nivel http}`)
-    req.logger.debug(`nivel debug`)
+    // req.logger.fatal(`nivel fatal`) //defino el tipo de error que lanza, solo se muestran los tipos de error definidos en el transportador o superior [0: error, 1 : warn, 2: info, 3: http, 4 : verbose, 5: debug, 6: silly], en este caso http va ammostrar errores del tipo [error, warn, info y http]  req.logger.debug(`${req.url} - method: ${req.method}`)
+    // req.logger.error(`nivel error`)
+    // req.logger.warning(`nivel warning`)
+    // req.logger.info(`nivel info`)
+    // req.logger.http(`nivel http}`)
+    // req.logger.debug(`nivel debug`)
     next();
 
 }
