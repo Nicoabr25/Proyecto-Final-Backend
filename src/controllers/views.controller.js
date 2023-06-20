@@ -37,7 +37,7 @@ export const HomeController = async (req, res) => {
     const { limit, page, sort, queryKey, queryParam } = req.query
     const userData = req.session
     const products = await manager.getProducts(limit, page, sort, queryKey, queryParam);
-    res.render("home", { products, userData, style: "indexhome", sectionName: "main" }) // home.handlebars le paso el style de css
+    res.render("home", { products, userData, style: "index", sectionName: "main" }) // home.handlebars le paso el style de css
 }
 
 export const LoginViewController = async (req, res) => {

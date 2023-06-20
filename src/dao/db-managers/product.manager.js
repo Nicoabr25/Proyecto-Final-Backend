@@ -8,12 +8,18 @@ class ProductManager {
     console.log("Trabajando con DB!")
   }
 
-  async getProducts(limit, page) {
+  async getProducts(limit, page, category) {
     let limitOp = limit ? limit : 4;
     let pageOp = page ? page : 1;
+    let categoryOp = category ? category : undefined;
     try {
-      const products = await productModel.paginate({}, { limit: limitOp, lean: true, page: page ?? pageOp })
-      return products;
+      if (categoryOp == undefined) {
+        const products = await productModel.paginate({}, { limit: limitOp, lean: true, page: page ?? pageOp })
+        return products;
+      } else {
+        const products = await productModel.paginate({ category: categoryOp }, { limit: limitOp, lean: true, page: page ?? pageOp })
+        return products;
+      }
     } catch (error) {
       return [];
     }

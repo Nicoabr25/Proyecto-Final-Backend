@@ -10,6 +10,12 @@
 }
 
 /*------------ Variables ------------*/
+
+:root {
+    --navbar-color: #082032;
+    --footer-color: #212529;
+}
+
 /*------------ Utilidades ------------*/
 .color-dark {
     color: #262225;
@@ -298,7 +304,7 @@ p {
 /*-------Footer------*/
 #footer {
     grid-area: footer;
-    background-color: #212529;
+    background-color: var(--footer-color);
 }
 
 #footer .footer__imagen {

@@ -4,8 +4,8 @@ const manager = new ProductManager();
 
 export const getProductsController = async (req, res) => {
     try {
-        const { limit, page, sort, queryKey, queryParam } = req.query;
-        const products = await manager.getProducts(limit, page);
+        const { limit, page, category, sort, queryKey, queryParam } = req.query;
+        const products = await manager.getProducts(limit, page, category);
         res.send({ status: "success", payload: products });
     } catch (e) {
         ProductErrorFunction() //funcion que lleva al manejo del error

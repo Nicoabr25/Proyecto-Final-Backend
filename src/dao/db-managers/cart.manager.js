@@ -7,7 +7,7 @@ const logger = addLoger2();
 class CartManager {
 
     constructor() {
-        console.log("Trabajando con DB!")
+        // console.log("Trabajando con DB!")
     }
 
     async getCarts() {
