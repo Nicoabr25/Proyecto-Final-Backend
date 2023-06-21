@@ -65,10 +65,21 @@ export const updateProductController = async (req, res) => {
 export const deleteProductController = async (req, res) => {
     try {
         const { pid } = req.params;
-        await manager.deleteProduct(pid);
+        const product = await manager.getProductbyId(pid)
+        console.log(product)
+        if (product) {
+            if (req.session.rol === "premium" && product.owner == req.session._id) { //si es premium y es el dueño del producto lo puede borrar, o si es admin
+                await manager.deleteProduct(pid)
+                res.send({ status: "succes", message: "Producto eliminado" })
+            } else if (req.session.rol === "admin") {
+                await manager.deleteProduct(pid)
+                res.send({ status: "succes", messsage: "Producto eliminado por el administradoer" })
+            } else {
+                res.send({ status: "error", messsage: "No puedes eliminar el producto" })
+            }
+        }
         const products = await manager.getProducts();
         req.io.emit("deleted-product", products);
-        res.send("Producto Eliminado")
     } catch (e) {
         res.status(404).send("No se pudo eliminar el producto, id inexistente")
     }

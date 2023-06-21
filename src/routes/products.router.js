@@ -19,6 +19,6 @@ productRouter.post("/", checkRole(["admin", "premium"]), createProductController
 productRouter.put("/:pid", checkRole(["admin"]), updateProductController);
 
 //Ruta para eliminar producto//
-productRouter.delete("/:pid", checkRole(["admin"]), deleteProductController);
+productRouter.delete("/:pid", checkRole(["admin", "premium"]), deleteProductController);
 
 export default productRouter;
