@@ -42,7 +42,7 @@ export const HomeController = async (req, res) => {
 
 export const LoginViewController = async (req, res) => {
     const userData = req.session
-    res.render("_login", { userData, style: "login", sectionName: "main" })
+    res.render("_login", { userData, style: "index", sectionName: "login" })
 }
 
 export const ProfileViewController = async (req, res) => {
@@ -53,9 +53,8 @@ export const ProfileViewController = async (req, res) => {
 }
 
 export const ForgotViewController = async (req, res) => {
-    console.log(req.session)
-    const userData = req.session
-    res.render("_forgot", { style: "index", sectionName: "main", userData })
+    const token = req.query.token;
+    res.render("_forgot", { style: "index", sectionName: "forgot", token })
 }
 
 export const SignupViewContoller = async (req, res) => {
@@ -74,4 +73,8 @@ export const loggerTestController = async (req, res) => {
     logger.http(`nivel http}`)
     logger.debug(`nivel debug`)
     res.send("prueba exitosa")
+}
+
+export const newPasswordViewController = async (req, res) => {
+    res.render("_newpass", { style: "index", sectionName: "newpass" })
 }

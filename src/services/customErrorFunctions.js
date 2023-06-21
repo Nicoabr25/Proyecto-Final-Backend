@@ -1,6 +1,6 @@
 import { CustomError } from "../services/customError.service.js"; //funcion para generar el error
 import { EError } from "../enums/EError.js"; //tipo de error
-import { generateUserErrorInfo, LoginErrorInfo, LoginAuthErrorInfo, ProductErrorInfo, CartNotFoundErrorInfo } from "../services/userErrorInfo.js";  //mensaje de error
+import { generateUserErrorInfo, LoginErrorInfo, LoginAuthErrorInfo, ProductErrorInfo, CartNotFoundErrorInfo, newPasswordErrorInfo } from "../services/userErrorInfo.js";  //mensaje de error
 
 export const LoginErrorFunction = (data) => {
     CustomError.createError({
@@ -40,10 +40,20 @@ export const ProductErrorFunction = () => {
 }
 export const CartNotFoundErrorFunction = () => {
     CustomError.createError({
-        name: "Error al obtener id del carritp",
+        name: "Error al obtener id del carrito",
         cause: CartNotFoundErrorInfo(),
         message: "No se pudo obtener el id del carrito",
         errorCode: EError.DATABASE_ERROR
+    })
+
+}
+
+export const newPasswordError = () => {
+    CustomError.createError({
+        name: "Error al restablecer contraseña",
+        cause: newPasswordErrorInfo(),
+        message: "No se pudo restablecer la contraseña",
+        errorCode: EError.AUTH_ERROR
     })
 
 }

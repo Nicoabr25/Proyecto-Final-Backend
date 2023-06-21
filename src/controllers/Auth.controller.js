@@ -1,8 +1,10 @@
 import userModel from "../dao/models/user.models.js";
 import { createHash, isValid } from "../utils.js";
 import passport from "passport";
-import { LoginErrorFunction, LoginAuthError } from "../services/customErrorFunctions.js";
+import { LoginErrorFunction, LoginAuthError, newPasswordError } from "../services/customErrorFunctions.js";
 import { addLoger2 } from "../logger/logger.js";
+import { generateEmailToken, verifyEmailToken } from "../utils.js";
+import { sendRecoveryPass } from "../config/email.js";
 
 const logger = addLoger2()
 
@@ -94,17 +96,48 @@ export const LogoutController = (req, res) => {
 
 export const ForgotController = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await userModel.findOne({ email: email })
-        if (user) {
-            user.password = createHash(password);
-            const userUpdate = await userModel.findByIdAndUpdate({ email: user.email }, user);
-            res.send("Contraseña actualziada");
+        const token = req.query.token
+        const { email, newpassword } = req.body;
+        const validEmail = verifyEmailToken(token)
+        if (!validEmail) {
+            return res.send(`El enlace ya no es vaildo. Genere uno nuevo haciendo click <a href="/newPassword">Aquí</a>`)
         } else {
-            res.send("Usuario inexistente")
+            if (!email) {
+                logger.error(`Falta Usario y/o contraseña`);
+                LoginErrorFunction(req.body) //funcion que lleva al manejo del error
+            }
+            const user = await userModel.findOne({ email: email })
+            if (isValid(user, newpassword)) {
+                return res.send("No puedes utilziar la misma contraseña")
+            }
+            if (user) {
+                user.password = createHash(newpassword);
+                const userUpdate = await userModel.findOneAndUpdate({ email: user.email }, user);
+                res.send(`Contraseña actualziada. Volver a <a href="/login">Login</a>`);
+            } else {
+                res.send("Usuario inexistente")
+            }
         }
-
     } catch (error) {
         res.send("No se pudo restaurar la contraeña")
+    }
+}
+
+export const newPasswordController = async (req, res) => {
+    try {
+        const { email } = req.body
+        const user = await userModel.findOne({ email: email })
+        if (user) {
+            //si el usario existe generamos el token para el link//
+            const token = generateEmailToken(email, 120) //luego de 120 segundos el link generado con el token no es valido
+            await sendRecoveryPass(email, token);
+            logger.info("email enviado")
+            res.send(`Se envio el correo con los pasos a seguir para restablecer la contraseña. Puede regresar a <a href="/login">login</a>`)
+        } else {
+            res.send(`<div>Error, usuario inexistente, por favor <a href="/login">intente de nuevo</a></div>`)
+        }
+    } catch (error) {
+        logger.error("No se pudo restablecer contraseña")
+        newPasswordError()
     }
 }

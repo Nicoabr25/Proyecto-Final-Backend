@@ -27,3 +27,7 @@ export const ProductErrorInfo = () => {
 export const CartNotFoundErrorInfo = () => {
     return `No se pudo obtener el id del carrito, posibliemente porque no se encuentre logueado`
 }
+
+export const newPasswordErrorInfo = () => {
+    return `No se pudo restablecer la contraseña. Intente nuevamente`
+}

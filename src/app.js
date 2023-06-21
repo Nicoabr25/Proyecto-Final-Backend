@@ -92,6 +92,7 @@ app.use(passport.initialize());//nuestro server inicializa passport
 app.use(passport.session()); //Una vez que me autentico con passport, automaticamente me crea la session de ese usuarrio
 
 export const port = options.server.port;
+
 //Socket.io// Comunicación servidor - cliente por Web Socket
 const httpServer = app.listen(port, () => { //instancia de servidor HTTP
   console.log(`server listening on port ${port}`);
@@ -122,14 +123,15 @@ app.use((req, res, next) => {
 });
 
 //Routers// Rutas de vista
+
 app.use("/", viewsRouter); //viewa.router.js que usa donde se hace el render de Handlebarss
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
-app.use("/products", viewsRouter);
-app.use("/login", viewsRouter);
-app.use("/profile", viewsRouter);
-app.use("/signup", viewsRouter);
+// app.use("/products", viewsRouter);
+// app.use("/login", viewsRouter);
+// app.use("/profile", viewsRouter);
+// app.use("/signup", viewsRouter);
 app.use("/api/session", authRouter);
-app.use("/chat", viewsRouter)
+// app.use("/chat", viewsRouter)
 app.use(errorHandler)//cada vez que se haga una peticion va a pasar por aca
 app.use(addLogger)

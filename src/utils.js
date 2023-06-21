@@ -1,12 +1,12 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+import { options } from "./config/options.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const Secret_key = "tokenSecretKey"
-
 //Pra poder usar __dirname si usamos ESM
 
 
@@ -40,6 +40,21 @@ const validateToken = (req, res, next) => {
         next();
     });
 }
+//generar token para email de recuperación de contraseña
+const generateEmailToken = (email, expireTime) => {
+    const token = jwt.sign({ email }, options.email.token_email, { expiresIn: expireTime })
+    return token;
+}
 
+const verifyEmailToken = (token) => {
+    try {
+        const info = jwt.verify(token, options.email.token_email)
+        return info.email
+    } catch (error) {
+        console.log(error.message)
+        return null;
+    }
 
-export { __dirname, createHash, isValid, generateToken, validateToken };
+}
+
+export { __dirname, createHash, isValid, generateToken, validateToken, generateEmailToken, verifyEmailToken };

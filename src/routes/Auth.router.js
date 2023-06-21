@@ -1,5 +1,5 @@
 import { Router, json, urlencoded } from "express";
-import { passportStrategySignupController, SignupRedirectController, passportFailedSignupController, CurrentController, GithubSignupController, GithubFailureSignupController, GithubCallbackController, LoginController, LogoutController, ForgotController } from "../controllers/Auth.controller.js";
+import { passportStrategySignupController, SignupRedirectController, passportFailedSignupController, CurrentController, GithubSignupController, GithubFailureSignupController, GithubCallbackController, LoginController, LogoutController, ForgotController, newPasswordController } from "../controllers/Auth.controller.js";
 
 
 const authRouter = Router();
@@ -28,5 +28,8 @@ authRouter.post("/logout", LogoutController);
 
 //Ruta para modificar contraseña de usuario//
 authRouter.post("/forgot", ForgotController);
+
+//Ruta para enviar email para recuperar contraseña//
+authRouter.post("/newPassword", newPasswordController)
 
 export default authRouter;
