@@ -66,6 +66,7 @@ export const LoginController = async (req, res) => {
             res.send(`Usuario inexistente, haz click  <a href="/signup">Aquí</a> para registrarte`)
         } else if (email === user.email && isValid(user, password) == true) {
             req.session.user = user.name
+            req.session._id = user._id
             req.session.userid = user._id.toString()
             req.session.email = user.email
             req.session.rol = user.rol

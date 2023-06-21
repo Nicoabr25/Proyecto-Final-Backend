@@ -13,7 +13,7 @@ productRouter.get("/", compression({ brotli: { enable: true, zlib: {} } }), getP
 productRouter.get("/:pid", getProductbyIdController);
 
 //Ruta para crear producto//
-productRouter.post("/", checkRole(["admin"]), createProductController);
+productRouter.post("/", checkRole(["admin", "premium"]), createProductController);
 
 //Ruta para actualizar producto//
 productRouter.put("/:pid", checkRole(["admin"]), updateProductController);

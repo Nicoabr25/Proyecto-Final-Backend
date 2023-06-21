@@ -9,6 +9,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import { initializePassport } from "./config/passport.config.js";
 import { options } from "./config/options.js";
 import { addLogger } from "./logger/logger.js";
+import usersRouter from "./routes/users.router.js"
 
 //----- Paquetes -----//
 import express from "express";
@@ -135,3 +136,4 @@ app.use("/api/session", authRouter);
 // app.use("/chat", viewsRouter)
 app.use(errorHandler)//cada vez que se haga una peticion va a pasar por aca
 app.use(addLogger)
+app.use("/api/users", usersRouter)

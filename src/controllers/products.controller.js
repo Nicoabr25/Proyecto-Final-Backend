@@ -36,9 +36,10 @@ export const createProductController = async (req, res) => {
         const code = Number(req.body.code);
         const stock = Number(req.body.stock);
         const category = req.body.category;
+        const owner = req.session._id;
         const status = true;
 
-        const result = await manager.addProduct(title, description, price, thumbnail, code, stock, category, status);
+        const result = await manager.addProduct(title, description, price, thumbnail, code, stock, category, owner, status);
         req.io.emit("new-product", result);
         res.status(201).send("Producto agregado con exito");
     } catch (e) {

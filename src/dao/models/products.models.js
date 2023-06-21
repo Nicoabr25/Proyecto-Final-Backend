@@ -9,6 +9,10 @@ const productSchema = new mongoose.Schema({
     code: { type: Number, required: true, unique: true },
     stock: { type: Number, required: true },
     category: { type: String, required: true },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+    },
     status: { type: Boolean, default: true },
 });
 
