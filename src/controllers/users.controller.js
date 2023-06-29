@@ -11,7 +11,7 @@ export const PremiumUser = async (req, res) => {
         } else if (userRol === "premium") {
             user.rol = "user"
         } else {
-            return res.json({ status: "ERROR", messafe: "no es posible cambiar el tipo de membresia" })
+            return res.json({ status: "ERROR", message: "no es posible cambiar el tipo de membresia" })
         }
         await userModel.updateOne({ _id: user._id }, user)
         res.send({ status: "succes", message: "Rol modificado" })
