@@ -26,7 +26,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#components/schemas/requestBodies"
+                $ref: "#components/requestBodies/createProduct"
       responses:
         "201":
           description: Producto agregado con exito
@@ -80,7 +80,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#components/schemas/requestBodies"
+                $ref: "#components/requestBodies/createProduct"
       responses:
         "201":
           description: success
