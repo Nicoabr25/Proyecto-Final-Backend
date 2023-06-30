@@ -15,7 +15,7 @@ cartRouter.post("/", createCartController);
 cartRouter.get("/:cid", getCartByIdController);
 
 //Ruta para agregar el producto (pid) al carrito (cid)//
-cartRouter.post("/:cid/product/:pid", checkRole(["user"]), AddProducttoCartController);
+cartRouter.post("/:cid/product/:pid", checkRole(["user", "premium"]), AddProducttoCartController);
 
 //Ruta de error al no crear carrito y no logearse
 cartRouter.post("/error", notCartController);

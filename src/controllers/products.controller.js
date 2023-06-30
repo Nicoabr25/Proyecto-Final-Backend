@@ -73,7 +73,7 @@ export const deleteProductController = async (req, res) => {
                 res.send({ status: "succes", message: "Producto eliminado" })
             } else if (req.session.rol === "admin") {
                 await manager.deleteProduct(pid)
-                res.send({ status: "succes", messsage: "Producto eliminado por el administradoer" })
+                res.send({ status: "succes", messsage: "Producto eliminado por el administrador" })
             } else {
                 res.send({ status: "error", messsage: "No puedes eliminar el producto" })
             }

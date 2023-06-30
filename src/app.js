@@ -10,6 +10,7 @@ import { initializePassport } from "./config/passport.config.js";
 import { options } from "./config/options.js";
 import { addLogger } from "./logger/logger.js";
 import usersRouter from "./routes/users.router.js"
+import { swaggerSpecs } from "./config/docConfig.js";
 
 //----- Paquetes -----//
 import express from "express";
@@ -23,6 +24,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import jwt from "jsonwebtoken";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
 app.use(express.json())
@@ -92,6 +94,7 @@ initializePassport();
 app.use(passport.initialize());//nuestro server inicializa passport
 app.use(passport.session()); //Una vez que me autentico con passport, automaticamente me crea la session de ese usuarrio
 
+
 export const port = options.server.port;
 
 //Socket.io// Comunicación servidor - cliente por Web Socket
@@ -128,12 +131,13 @@ app.use((req, res, next) => {
 app.use("/", viewsRouter); //viewa.router.js que usa donde se hace el render de Handlebarss
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
+app.use("/api/session", authRouter);
+app.use("/api/users", usersRouter);
+app.use(errorHandler)//cada vez que se haga una peticion va a pasar por aca
+app.use(addLogger);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs))//endopoint donde podemos ver la documentacion
 // app.use("/products", viewsRouter);
 // app.use("/login", viewsRouter);
 // app.use("/profile", viewsRouter);
 // app.use("/signup", viewsRouter);
-app.use("/api/session", authRouter);
 // app.use("/chat", viewsRouter)
-app.use(errorHandler)//cada vez que se haga una peticion va a pasar por aca
-app.use(addLogger)
-app.use("/api/users", usersRouter)
