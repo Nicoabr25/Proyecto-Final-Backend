@@ -25,7 +25,7 @@ const initializePassport = () => { //passport trabaja con username y password, p
                     return done(null, false) //done(Error,payload)
                 }
                 //si el usuario no existe
-                //ferificacion del mail para saber si es admin o user
+                //verificacion del mail para saber si es admin o user
                 let rol = "user"; //poe defecto es user;
                 if (username.endsWith("@coder.com")) {//si el mail termina en @coder.com el rol toma el valor de admin
                     rol = "admin"

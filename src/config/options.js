@@ -8,7 +8,9 @@ export const options = {
         cartFileName: 'cart.json'
     },
     mongoDB: {
+        ENVIRONMENT: process.env.ENVIRONMENT,
         URL: process.env.MONGO_URL,
+        TEST: process.env.MONGO_URL_TEST,
     },
     server: {
         port: process.env.PORT,
