@@ -1,10 +1,10 @@
 <div class = "producto__article">
     <div class="product_banner">  
         <h2>PRODUCTOS</h2>
-        {{!-- <img src="./img/banner_prooducto_1712x600.png" alt="Banner productos"> --}}
     </div>
     <div class="user_data">
-        <h2>Bienvenido: {{userData.user}}, tu pérfil de usuario es: {{userData.rol}} y tu carrito es: {{userData.cartid}}</h2>
+        <h2>Bienvenido: {{userData.user}}</h2>
+        <p>tu pérfil de usuario es: {{userData.rol}} y tu carrito es: {{userData.cartid}}</p>
         <div>
             <form method="post" action="/api/session/logout">
             <button type="submit">Log Out!</button>

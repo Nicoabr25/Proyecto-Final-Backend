@@ -11,7 +11,7 @@ viewsRouter.use(json());
 viewsRouter.get("/real-time-products", GetRealTimeProductsController)
 
 //Ruta para chat mediante socket.io//
-viewsRouter.get("/chat", checkRole(["user"]), ChatController)
+viewsRouter.get("/chat", checkRole(["user", "premium"]), ChatController)
 
 //Ruta para la view de productos//
 viewsRouter.get("/products", compression({ brotli: { enable: true, zlib: {} } }), ProductViewController);
@@ -32,10 +32,13 @@ viewsRouter.get("/forgot", ForgotViewController);
 //Ruta para la view de Signup//
 viewsRouter.get("/signup", SignupViewContoller);
 
+//Ruta para la página de error//
 viewsRouter.get("/error", errorController)
 
+//Ruta para loggertest//
 viewsRouter.get("/loggerTest", loggerTestController)
 
+//Ruta para restablecer la contraseña//
 viewsRouter.get("/newPassword", newPasswordViewController)
 
 export default viewsRouter;
