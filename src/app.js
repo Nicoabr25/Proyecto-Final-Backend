@@ -141,3 +141,5 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs))//endopoint 
 // app.use("/profile", viewsRouter);
 // app.use("/signup", viewsRouter);
 // app.use("/chat", viewsRouter)
+
+export { app }
