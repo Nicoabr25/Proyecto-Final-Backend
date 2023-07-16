@@ -136,10 +136,5 @@ app.use("/api/users", usersRouter);
 app.use(errorHandler)//cada vez que se haga una peticion va a pasar por aca
 app.use(addLogger);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs))//endopoint donde podemos ver la documentacion
-// app.use("/products", viewsRouter);
-// app.use("/login", viewsRouter);
-// app.use("/profile", viewsRouter);
-// app.use("/signup", viewsRouter);
-// app.use("/chat", viewsRouter)
 
 export { app }
