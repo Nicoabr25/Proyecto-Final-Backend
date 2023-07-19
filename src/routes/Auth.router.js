@@ -1,13 +1,13 @@
 import { Router, json, urlencoded } from "express";
 import { passportStrategySignupController, SignupRedirectController, passportFailedSignupController, CurrentController, GithubSignupController, GithubFailureSignupController, GithubCallbackController, LoginController, LogoutController, ForgotController, newPasswordController } from "../controllers/Auth.controller.js";
-
+import { uploaderProfile } from "../config/file-upload.js";
 
 const authRouter = Router();
 authRouter.use(json());
 authRouter.use(urlencoded({ extended: true }));
 
 //Ruta para ingresar mediante passport Signup//
-authRouter.post("/signup", passportStrategySignupController, SignupRedirectController);
+authRouter.post("/signup", uploaderProfile.single("avatar"), passportStrategySignupController, SignupRedirectController);
 
 //Ruta por si falla el signup de passport//
 authRouter.get("/failure-signup", passportFailedSignupController);

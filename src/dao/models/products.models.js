@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
     },
-    status: { type: Boolean, default: true },
+    status: { type: Boolean, default: true }
 });
 
 productSchema.plugin(mongoosePaginate);

@@ -1,4 +1,6 @@
 import { ProductManager } from "../config/persistance.js";
+import { __dirname } from "../utils.js";
+import path from "path"
 
 const manager = new ProductManager();
 

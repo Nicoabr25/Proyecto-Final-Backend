@@ -85,7 +85,10 @@ export const LoginController = async (req, res) => {
     }
 };
 
-export const LogoutController = (req, res) => {
+export const LogoutController = async (req, res) => {
+    const user = { ...req.user } //hago un clon de req. user para no modificarlo
+    user.last_connection = new Date(); //guardo nuevamente la ultima session
+    const userUpdated = await userModel.findByIdAndUpdate(user._id, user) //actulizo en la BD
     req.session.destroy(error => {
         if (error) {
             res.send("No se pudo cerrar la sesion")

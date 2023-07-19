@@ -38,6 +38,7 @@ const initializePassport = () => { //passport trabaja con username y password, p
                     password: createHash(password),
                     rol, //por default se crea como user según el userModel
                     cart: await cart.addCart(),
+                    avatar: req.file.path
                 }
                 const newUser = await userModel.create(NewUserData);
                 return done(null, newUser) //el primer parametro del done es si hubo error, el segundo es lo que devuelve, en este caso el usuario creado
@@ -61,7 +62,11 @@ const initializePassport = () => { //passport trabaja con username y password, p
                     return done(null, false);
                 }                //el usuario existe entonces valido al contraseña
                 if (!isValid(user, password)) return done(null, false)  //la contraseña no es valida
-                return done(null, user);
+                //si la contraseña es valida, entonces guardo su ultima conexion
+                user.last_connection = new Date();
+                //ahora actualizo el usuario en la BD
+                const userUpdated = await userModel.findByIdAndUpdate(user._id, user)
+                return done(null, userUpdated);
             } catch (error) {
                 return done(error)
             }
