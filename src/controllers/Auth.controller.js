@@ -73,6 +73,10 @@ export const LoginController = async (req, res) => {
             req.session.age = user.age
             req.session.cart = user.cart
             req.session.cartid = user.cart[0]._id.toString()
+            //si la contraseña es valida, entonces guardo su ultima conexion
+            user.last_connection = new Date();
+            //ahora actualizo el usuario en la BD
+            const userUpdated = await userModel.findByIdAndUpdate(user._id, user)
             console.log(req.session)
             res.redirect("/products")
         } else {
