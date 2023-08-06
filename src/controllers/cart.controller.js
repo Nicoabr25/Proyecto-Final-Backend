@@ -3,7 +3,7 @@ import { manager } from "../controllers/products.controller.js"
 import TicketManager from "../dao/db-managers/ticket.manager.js";
 import { CartNotFoundErrorFunction } from "../services/customErrorFunctions.js";
 import { addLoger2 } from "../logger/logger.js";
-
+import { purchaseEmail } from "../services/users.service.js";
 
 export const cartManager = new CartManager();
 export const ticketManager = new TicketManager();
@@ -109,8 +109,9 @@ export const PurchaseCartController = async (req, res) => {
         const NewTicket = await ticketManager.newTicket(purchaseCart, req.session.email.toString())
         lastTicket = NewTicket
         logger.info(`Exito! se ha generado el ticket ${NewTicket}`)
+        purchaseEmail(NewTicket, req.session.email.toString())
         // console.log({ status: "Succes", payload: NewTicket })
-        res.redirect("/profile")
+        res.redirect("/compraRealizada")
     } catch (error) {
         logger.error(`Error! No se puede finalizar la compra`)
         // console.log({ status: "Error", payload: "No se puede finalizar la compra" })

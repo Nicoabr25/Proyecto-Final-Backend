@@ -78,3 +78,7 @@ export const loggerTestController = async (req, res) => {
 export const newPasswordViewController = async (req, res) => {
     res.render("_newpass", { style: "index", sectionName: "newpass" })
 }
+
+export const compraRealizada = async (req, res) => {
+    res.render("compraRealizada", { style: "index", sectionName: "compraRealizada" })
+}

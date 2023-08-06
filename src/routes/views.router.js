@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller, errorController, loggerTestController, newPasswordViewController } from "../controllers/views.controller.js";
+import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller, errorController, loggerTestController, newPasswordViewController, compraRealizada } from "../controllers/views.controller.js";
 import { checkRole } from "../middlewares/roles.js";
 import compression from "express-compression";
 
@@ -40,5 +40,8 @@ viewsRouter.get("/loggerTest", loggerTestController)
 
 //Ruta para restablecer la contraseña//
 viewsRouter.get("/newPassword", newPasswordViewController)
+
+//Ruta para la página de compra satisfactoria//
+viewsRouter.get("/compraRealizada", compraRealizada)
 
 export default viewsRouter;

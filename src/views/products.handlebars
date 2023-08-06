@@ -4,7 +4,10 @@
     </div>
     <div class="user_data">
         <h2>Bienvenido: {{userData.user}}</h2>
-        <p>tu pérfil de usuario es: {{userData.rol}} y tu carrito es: {{userData.cartid}}</p>
+        <div class = "user_info">
+            <p>tu pérfil de usuario es: {{userData.rol}} y tu carrito es: {{userData.cartid}}</p>
+
+        </div>
         <div>
             <form method="post" action="/api/session/logout">
             <button type="submit">Log Out!</button>

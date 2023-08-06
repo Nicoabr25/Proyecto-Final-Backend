@@ -77,6 +77,7 @@ export const LoginController = async (req, res) => {
             user.last_connection = new Date();
             //ahora actualizo el usuario en la BD
             const userUpdated = await userModel.findByIdAndUpdate(user._id, user)
+            req.session.last_connection = user.last_connection
             console.log(req.session)
             res.redirect("/products")
         } else {

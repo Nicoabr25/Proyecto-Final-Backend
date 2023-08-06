@@ -1,5 +1,5 @@
 import userModel from "../dao/models/user.models.js";
-
+import { deleteAccountEmail, deleteUserFunction } from "../services/users.service.js";
 
 export const PremiumUser = async (req, res) => {
     try {
@@ -60,6 +60,48 @@ export const DocumentsController = async (req, res) => {
     }
 }
 
+export const getUsersController = async (req, res) => {
+    try {
+        const users = await userModel.find().lean()
+        let DisplayUser = users.map(aux => {
+            return `Nombre : ${aux.name}, Apellido: ${aux.last_name}, Email: ${aux.email}, Rol: ${aux.rol}`
+        })
+        console.log(DisplayUser)
+        res.status(201).send(DisplayUser)
+    } catch (error) {
+        console.log(error.message)
+        res.status(404).send("No se pueden obtener la lista de usuarios")
+    }
+}
+
+//Eliminar usuarios sin uso 2 hs//
+
+export const deleteUsersController = async (req, res) => {
+    try {
+        const users = await userModel.find().lean()
+        let today = new Date()
+        // let timeLimit = 1000 * 60 * 60 * 24 * 2
+        let timeLimit = 1000 * 60 * 60 * 24 * 2
+        let control = today.getTime() - timeLimit
+        let last2Days = new Date(control)
+
+        let usersLast = users.filter(aux => (aux.last_connection < last2Days)) //filtra los usuarios cuyo last conection es mayor a 2 dpias atras.
+        let userId = usersLast.map(aux => { return { id: aux._id, email: aux.email } })
+        let deleteUser = userId.forEach(aux => (deleteAccountEmail(aux.email), deleteUserFunction(aux.id)))
+        console.log(userId)
+        if (userId.length !== 0) {
+            res.status(201).send(`Se han eliminado los usuarios inactivos`)
+        } else {
+            res.status(201).send(`No hay usuarios inactivos en la BD`)
+        }
+
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(404).send("No se pueden eliminar los usuarios")
+    }
+
+}
 // try {
 //     const userId = req.params.uid //tomo el id de params
 //     const user = await userModel.findById(userId) //verifico que el usuario exista

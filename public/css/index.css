@@ -404,7 +404,19 @@ p {
     padding: 10px;
 }
 
-.user_data h2 {
+.user_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_info img {
+    border-radius: 1rem;
+
+}
+
+.user_info h2 {
     font-size: 1.5rem;
     font-weight: 700;
     font-family: "EB Garamond", serif;
@@ -1003,6 +1015,38 @@ h2 {
     color: aliceblue;
     font-weight: 500;
 }
+
+/*------------------------------Compra Realziada-----------------------------*/
+#compraRealizada {
+    grid-area: main;
+    min-height: 65vh;
+    background-color: #212529;
+}
+
+.compraRealizada {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 10%;
+    padding: 1rem 1rem;
+    background-color: rgba(219, 234, 238, 0.4);
+    border-radius: 1rem;
+}
+
+.compraRealizada img {
+    max-width: 40vw;
+    max-height: 40vh;
+    border-radius: 1rem;
+    margin-top: 30px;
+}
+
+.compraRealizada h1,
+h2 {
+    color: aliceblue;
+    font-weight: 500;
+}
+
 
 /*-----------------------------Chat-----------------------------*/
 #chat {
