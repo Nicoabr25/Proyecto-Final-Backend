@@ -69,7 +69,7 @@ export async function deleteProductEmail(email) {
     const emailTemplate = `<div>
     <h1>Producto Eliminado</h1>
     <img src="https://firebasestorage.googleapis.com/v0/b/react-nicolasabraham.appspot.com/o/cafe%2Femptycoffeecup.png?alt=media&token=e6f743ab-5d70-404c-bd0e-9bda09108bda">
-    <p>El administrador ha eliminado su producto</p>
+    <p>Se ha eliminado su producto</p>
     <p>Por favor, contactese con nosotros por cualquier consulta<p>
     </div>`
 
@@ -80,7 +80,7 @@ export async function deleteProductEmail(email) {
             const data = await transporter.sendMail({
                 from: "AromaCaffe.ar@gmail.com",
                 to: email,
-                subject: "Producto eliminado por el administrador",
+                subject: "Producto eliminado",
                 html: emailTemplate,
             })
         }

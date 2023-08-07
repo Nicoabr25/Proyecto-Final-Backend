@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller, errorController, loggerTestController, newPasswordViewController, compraRealizada } from "../controllers/views.controller.js";
+import { GetRealTimeProductsController, ChatController, ProductViewController, HomeController, LoginViewController, ProfileViewController, ForgotViewController, SignupViewContoller, errorController, loggerTestController, newPasswordViewController, compraRealizada, createProductController, toPremiumController, deleteProductController } from "../controllers/views.controller.js";
 import { checkRole } from "../middlewares/roles.js";
 import compression from "express-compression";
 
@@ -43,5 +43,14 @@ viewsRouter.get("/newPassword", newPasswordViewController)
 
 //Ruta para la página de compra satisfactoria//
 viewsRouter.get("/compraRealizada", compraRealizada)
+
+//Ruta para acceder al form de crear Producto//
+viewsRouter.get("/createProduct", checkRole(["admin", "premium"]), createProductController)
+
+//Ruta para acceder al form y eliminar producto SOLO ADMIN//
+viewsRouter.get("/deleteProduct", checkRole(["admin"]), deleteProductController)
+
+//Ruta para acceder al form para ser premium//
+viewsRouter.get("/topremium", toPremiumController)
 
 export default viewsRouter;

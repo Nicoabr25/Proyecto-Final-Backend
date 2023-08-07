@@ -1,5 +1,5 @@
 import { Router, json } from "express";
-import { getProductsController, getProductbyIdController, createProductController, updateProductController, deleteProductController } from "../controllers/products.controller.js";
+import { getProductsController, getProductbyIdController, createProductController, updateProductController, deleteProductController, deleteProductFormController } from "../controllers/products.controller.js";
 import { checkRole } from "../middlewares/roles.js";
 import compression from "express-compression";
 import { uploaderProduct } from "../config/file-upload.js";
@@ -21,5 +21,8 @@ productRouter.put("/:pid", checkRole(["admin"]), updateProductController);
 
 //Ruta para eliminar producto//
 productRouter.delete("/:pid", checkRole(["admin", "premium"]), deleteProductController);
+
+//Ruta para eliminar producto por formulario//
+productRouter.post("/delete", checkRole(["admin", "premium"]), deleteProductFormController);
 
 export default productRouter;

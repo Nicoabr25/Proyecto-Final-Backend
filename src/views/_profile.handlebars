@@ -10,6 +10,22 @@
             <button type="submit">Log Out!</button>
             </form>
         </div>
+        {{#ifCond userData.rol '==' "user"}}
+        <div class="logout_button">
+            <a href="/topremium"><button type="submit">Quiero ser Premium</button></a> 
+        </div>
+        {{/ifCond}}
+        {{#ifCond userData.rol '==' "premium"}}
+        <div class="logout_button">
+            <a href="/createProduct"><button type="submit">Agregar Producto</button></a> 
+        </div>
+        {{/ifCond}}
+        {{#ifCond userData.rol '==' "admin"}}
+        <div class="logout_button">
+            <a href="/createProduct"><button type="submit">Agregar Producto</button></a>
+            <a href="/deleteProduct"><button type="submit">Eliminar Productos</button></a>
+        </div>
+        {{/ifCond}}
     </div>
     <h1>Vista del carrito</h1>
 {{#if cartProduct._id}}

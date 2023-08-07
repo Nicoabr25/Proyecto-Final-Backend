@@ -31,6 +31,7 @@ export const DocumentsController = async (req, res) => {
         const userId = req.params.uid //tomo el id de params
         const user = await userModel.findById(userId) //verifico que el usuario exista
         if (user) {
+            const docs = []
             const identificacion = req.files['identificacion']?.[0] || null; //subio identificacion o no? el [0] es para buscar el primero elemento del objeto identificacion, en este caso fieldname
             const domicilio = req.files['domicilio']?.[0] || null;
             const estadoDeCuenta = req.files['estadoDeCuenta']?.[0] || null;
@@ -45,6 +46,7 @@ export const DocumentsController = async (req, res) => {
             }
             if (docs.length == 3) {//verifico si tengo los tres documentos
                 user.status = "completo"
+                user.rol = "premium"
             } else {
                 user.status = "incompleto"
             }
@@ -54,7 +56,7 @@ export const DocumentsController = async (req, res) => {
         } else {
             res.status(404).send("No existe el usuario")
         }
-    } catch {
+    } catch (error) {
         console.log(error.message)
         res.status(404).send("No se pueden cargar los documentos")
     }

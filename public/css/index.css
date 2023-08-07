@@ -902,7 +902,7 @@ h2 {
     margin: 15px;
     padding: 5px;
     border-radius: 0.5rem;
-    background-color: azure;
+    background-color: #212529;
 }
 
 .signup_form button:hover {
@@ -984,6 +984,161 @@ button {
 #login button:hover {
     background-color: #3CA6A6;
 }
+
+/*-----------------------------CrearProducto-----------------------------*/
+#crearProducto {
+    grid-area: main;
+    width: 100%;
+    height: auto;
+    background-size: 300% 300%;
+    background-image: linear-gradient(-45deg, rgb(138, 234, 239) 0%, rgb(43, 175, 223) 25%, rgb(22, 141, 200) 51%, #a254ea 100%);
+    -webkit-animation: AnimateBG 20s ease infinite;
+    animation: AnimateBG 20s ease infinite;
+
+
+}
+
+@-webkit-keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#crearProducto div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(219, 234, 238, 0.4);
+    border-radius: 1rem;
+    margin: 10vh 15vw 10vh 15vw;
+    padding: 15px;
+}
+
+#crearProducto form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#crearProducto input,
+button {
+    margin: 5px 5px 2px 5px;
+    padding: 2px;
+    border-radius: 0.5rem;
+}
+
+#crearProducto button {
+    width: 200px;
+    height: 50px;
+    padding: 5px;
+    background-color: #212529;
+}
+
+#crearProducto button:hover {
+    background-color: #3CA6A6;
+}
+
+/*-----------------------------to Premium-----------------------------*/
+#toPremium {
+    grid-area: main;
+    width: 100%;
+    height: auto;
+    background-size: 300% 300%;
+    background-image: linear-gradient(-45deg, rgb(138, 234, 239) 0%, rgb(43, 175, 223) 25%, rgb(22, 141, 200) 51%, #a254ea 100%);
+    -webkit-animation: AnimateBG 20s ease infinite;
+    animation: AnimateBG 20s ease infinite;
+
+
+}
+
+@-webkit-keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#toPremium div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(219, 234, 238, 0.4);
+    border-radius: 1rem;
+    margin: 10vh 15vw 10vh 15vw;
+    padding: 15px;
+}
+
+#toPremium form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#toPremium input,
+button {
+    margin: 5px 5px 2px 5px;
+    padding: 2px;
+    border-radius: 0.5rem;
+}
+
+#toPremium button {
+    width: 200px;
+    height: 50px;
+    padding: 5px;
+    background-color: #212529;
+}
+
+#toPremium button:hover {
+    background-color: #3CA6A6;
+}
+
 
 /*------------------------------Error page-----------------------------*/
 #error {

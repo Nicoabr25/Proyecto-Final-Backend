@@ -82,3 +82,16 @@ export const newPasswordViewController = async (req, res) => {
 export const compraRealizada = async (req, res) => {
     res.render("compraRealizada", { style: "index", sectionName: "compraRealizada" })
 }
+
+export const createProductController = async (req, res) => {
+    res.render("createProduct", { style: "index", sectionName: "crearProducto" })
+}
+
+export const deleteProductController = async (req, res) => {
+    res.render("deleteProduct", { style: "index", sectionName: "deleteProduct" })
+}
+
+export const toPremiumController = async (req, res) => {
+    const userData = req.session
+    res.render("_topremium", { userData, style: "index", sectionName: "toPremium" })
+}

@@ -59,7 +59,7 @@ const documentStorage = multer.diskStorage({
     },
     //nombre del archivo//
     filename: function (req, file, cb) {
-        cb(null, `${req.user.email}-documento-${file.originalname}`) //el archivo se guarda como el email + documento + el nombre del archivo original. file.originalname es el nombre del archivo que sube el usuario y contiene la extension del mismo, por eso conviene ponerlo a lo ultimo 
+        cb(null, `${req.session.email}-documento-${file.originalname}`) //el archivo se guarda como el email + documento + el nombre del archivo original. file.originalname es el nombre del archivo que sube el usuario y contiene la extension del mismo, por eso conviene ponerlo a lo ultimo 
     }
 });
 //crear uploader de documentos//
