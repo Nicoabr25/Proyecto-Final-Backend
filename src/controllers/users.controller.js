@@ -82,7 +82,6 @@ export const deleteUsersController = async (req, res) => {
     try {
         const users = await userModel.find().lean()
         let today = new Date()
-        // let timeLimit = 1000 * 60 * 60 * 24 * 2
         let timeLimit = 1000 * 60 * 60 * 24 * 2
         let control = today.getTime() - timeLimit
         let last2Days = new Date(control)
