@@ -8,7 +8,7 @@ class TicketManager {
 
     async newTicket(arr, userEmail) { //recibe el array del carrito (tikectProduct) y el usuario que realiza la compra (req.session.email.toString())
         try {
-            const purchase_datetime = new Date().toLocaleString();
+            const purchase_datetime = new Date().toISOString();
             const amount = arr.reduce((acc, el) => acc + el.product.price * el.quantity, 0)
             const purchaser = userEmail
             const newTicket = {
