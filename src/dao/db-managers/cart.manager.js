@@ -98,10 +98,10 @@ class CartManager {
         try {
             const cart = await cartModel.findById(cid)
             if (!cart) {
-                res.send("carrito inexistente");
+                return ("carrito inexistente");
             } else {
                 if (!cart.products.length) {
-                    return req.send("No hay productos en el carrito, agreguelos...")
+                    return ("No hay productos en el carrito, agreguelos...")
                 }
                 for (let i = 0; i < cart.products.length; i++) {
                     const cartProduct = cart.products[i]
