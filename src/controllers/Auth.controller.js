@@ -147,6 +147,6 @@ export const newPasswordController = async (req, res) => {
         }
     } catch (error) {
         logger.error("No se pudo restablecer contraseña")
-        // newPasswordError()
+        newPasswordError()
     }
 }

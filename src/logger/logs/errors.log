@@ -32,3 +32,5 @@
 {"level":"fatal","message":"No se pueden obtener el carrito"}
 {"level":"fatal","message":"No se pueden obtener el carrito"}
 {"level":"error","message":"No se pueden obtener el carrito"}
+{"level":"fatal","message":"No se pueden obtener el carrito"}
+{"level":"error","message":"Usario y contraseña incorrecto"}

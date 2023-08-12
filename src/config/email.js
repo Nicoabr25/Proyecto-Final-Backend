@@ -19,7 +19,7 @@ export const transporter = nodemailer.createTransport({
 //funcion para generar el correo de recuperar la contraseña
 
 const sendRecoveryPass = async (userEmail, token) => {
-    const link = `https://proyecto-final-backend-production-8d8e.up.railway.app/forgot?token=${token}`; //enlace con token para mandar al cliente para recuperar su contraseña
+    const link = `http://localhost:8080/forgot?token=${token}`; //enlace con token para mandar al cliente para recuperar su contraseña
     //estuctura del correo
     await transporter.sendMail({
         from: options.email.email_admin,
